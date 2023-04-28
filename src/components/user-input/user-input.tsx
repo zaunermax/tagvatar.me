@@ -5,6 +5,7 @@ import { useLocalStorage } from '@/hooks';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { PromptComponent } from '@/components/used-prompt';
 import Image from 'next/image';
+import { GameGenre } from '@/utils';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 	fetch('/api/generate', {
@@ -17,9 +18,14 @@ const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 			apiKey,
 			genre,
 		}),
-	}).then((res) => res.json());
+	});
 
-export const UserInput = ({ genres = [] }: { genres: string[] }) => {
+const handleErrors = async (res: Response) => {
+	if (!res.ok) throw new Error((await res.json()).message);
+	return res.json();
+};
+
+export const UserInput = () => {
 	const [username, setUsername] = useLocalStorage('username', '');
 	const [apiKey, setApiKey] = useLocalStorage('apiKey', '');
 	const [avatarUrl, setAvatarUrl] = useLocalStorage<string>(
@@ -29,15 +35,18 @@ export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 	const [prompt, setPrompt] = useLocalStorage<string | null>('prompt', null);
 
 	const [loading, setLoading] = useState(false);
-	const [genre, setGenre] = useState<string>('Random');
+	const [genre, setGenre] = useState<string>(GameGenre.Random);
+	const [error, setError] = useState<string | null>(null);
 
 	const generateImage = () => {
 		setLoading(true);
 		getGeneratedImage(username, apiKey, genre)
+			.then(handleErrors)
 			.then(({ avatarUrl, prompt }) => {
 				setAvatarUrl(avatarUrl);
 				setPrompt(prompt);
 			})
+			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
 	};
 
@@ -66,7 +75,7 @@ export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 					defaultValue={'Random'}
 					onChange={(e) => setGenre(e.target.value)}
 				>
-					{genres?.map((genre) => (
+					{Object.values(GameGenre)?.map((genre) => (
 						<option key={genre} value={genre}>
 							{genre}
 						</option>
@@ -80,10 +89,15 @@ export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 			>
 				{loading ? <LoadingSpinner /> : `${prompt ? 'Re-' : ''}Generate Image`}
 			</button>
+			{error && (
+				<div className="mt-4 rounded-md bg-red-600 px-4 py-2 text-white">
+					<p>Something went wrong while generating the image: {error}</p>
+				</div>
+			)}
 			<div className="mt-4">
 				<div className="flex h-64 w-full items-center justify-center rounded-md bg-gray-700">
 					<Image
-						src={avatarUrl}
+						src={avatarUrl ?? '/placeholder.png'}
 						width={256}
 						height={256}
 						alt={'your generated image'}

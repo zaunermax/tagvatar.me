@@ -19,11 +19,15 @@ const getOpenAiImage = (prompt: string, apiKey: string) => {
 			size: '256x256',
 		})
 		.then((response) => {
+			console.log('response', response.data?.data?.[0]);
 			return response.data?.data?.[0]?.url;
 		})
-		.catch((e) => {
-			console.error(e.message);
-			process.exit(1);
+		.catch((error) => {
+			if (error.response) {
+				throw new Error(error.response.data.error.message);
+			} else {
+				throw new Error('No response received from OpenAI');
+			}
 		});
 };
 
@@ -34,9 +38,20 @@ export async function POST(request: Request) {
 
 	const prompt = getRandomGamerAvatar(prompts, gamerTag);
 
-	const avatarUrl = (await getOpenAiImage(prompt, apiKey)) ?? '';
-
-	return NextResponse.json({ avatarUrl, prompt });
+	try {
+		const avatarUrl = (await getOpenAiImage(prompt, apiKey)) ?? '';
+		return NextResponse.json({ avatarUrl, prompt });
+	} catch (e) {
+		return NextResponse.json(
+			{
+				message:
+					e instanceof Error
+						? e.message
+						: 'The provided gamer tag resulted in an error, it was probably filtered by the AI system',
+			},
+			{ status: 400 },
+		);
+	}
 }
 
 export async function GET() {
