@@ -13,15 +13,8 @@ const getOpenAiImage = (prompt: string, apiKey: string) => {
 	const api = new OpenAIApi(openAiConfig);
 
 	return api
-		.createImage({
-			prompt,
-			n: 1,
-			size: '256x256',
-		})
-		.then((response) => {
-			console.log('response', response.data?.data?.[0]);
-			return response.data?.data?.[0]?.url;
-		})
+		.createImage({ prompt, n: 1, size: '256x256' })
+		.then((response) => response.data?.data?.[0]?.url)
 		.catch((error) => {
 			if (error.response) {
 				throw new Error(error.response.data.error.message);
