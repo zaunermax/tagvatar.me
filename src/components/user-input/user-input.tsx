@@ -25,43 +25,40 @@ export const UserInput = () => {
 	const generateImage = () => {
 		setLoading(true);
 		getGeneratedImage(username, apiKey)
-			.then(({ avatarUrl }) => {
-				setAvatarUrl(avatarUrl);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
+			.then(({ avatarUrl }) => setAvatarUrl(avatarUrl))
+			.finally(() => setLoading(false));
 	};
 
 	return (
-		<div className="bg-gray-800 p-8 rounded-md shadow-lg w-full max-w-md">
-			<h1 className="text-2xl font-bold mb-6 text-center text-white">
+		<div className="w-full max-w-md rounded-md bg-gray-800 p-8 shadow-lg">
+			<h1 className="mb-6 text-center text-2xl font-bold text-white">
 				AI Generated Image
 			</h1>
 			<div className="space-y-4">
 				<input
 					type="text"
 					placeholder="Gamertag"
-					className="w-full px-4 py-2 border border-gray-700 bg-gray-700 text-white rounded-md"
+					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
 				<input
 					type="text"
 					placeholder="OpenAI API Key"
-					className="w-full px-4 py-2 border border-gray-700 bg-gray-700 text-white rounded-md"
+					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
 					value={apiKey}
 					onChange={(e) => setApiKey(e.target.value)}
 				/>
 			</div>
 			<button
-				className="w-full mt-4 py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+				disabled={loading}
+				className="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
 				onClick={generateImage}
 			>
 				{loading ? <LoadingSpinner /> : 'Generate Image'}
 			</button>
 			<div className="mt-6">
-				<div className="w-full h-64 bg-gray-700 rounded-md flex items-center justify-center">
+				<div className="flex h-64 w-full items-center justify-center rounded-md bg-gray-700">
 					{avatarUrl ? (
 						<img src={avatarUrl} className="max-h-full max-w-full" />
 					) : (
