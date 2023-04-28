@@ -48,7 +48,7 @@ export const UserInput = () => {
 					onChange={(e) => setUsername(e.target.value)}
 				/>
 				<input
-					type="text"
+					type="password"
 					placeholder="OpenAI API Key"
 					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
 					value={apiKey}
