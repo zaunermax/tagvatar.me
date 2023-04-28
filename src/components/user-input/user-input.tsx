@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocalStorage } from '@/hooks';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { PromptComponent } from '@/components/used-prompt';
+import Image from 'next/image';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 	fetch('/api/generate', {
@@ -21,9 +22,13 @@ const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 	const [username, setUsername] = useLocalStorage('username', '');
 	const [apiKey, setApiKey] = useLocalStorage('apiKey', '');
+	const [avatarUrl, setAvatarUrl] = useLocalStorage<string>(
+		'avatarImage',
+		'/placeholder.png',
+	);
+	const [prompt, setPrompt] = useLocalStorage<string | null>('prompt', null);
+
 	const [loading, setLoading] = useState(false);
-	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-	const [prompt, setPrompt] = useState<string | null>(null);
 	const [genre, setGenre] = useState<string>('Random');
 
 	const generateImage = () => {
@@ -68,21 +73,22 @@ export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 					))}
 				</select>
 			</div>
-
 			<button
 				disabled={loading}
 				className="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
 				onClick={generateImage}
 			>
-				{loading ? <LoadingSpinner /> : 'Generate Image'}
+				{loading ? <LoadingSpinner /> : `${prompt ? 'Re-' : ''}Generate Image`}
 			</button>
 			<div className="mt-4">
 				<div className="flex h-64 w-full items-center justify-center rounded-md bg-gray-700">
-					{avatarUrl ? (
-						<img src={avatarUrl} className="max-h-full max-w-full" />
-					) : (
-						<p className="text-white">No image generated yet</p>
-					)}
+					<Image
+						src={avatarUrl}
+						width={256}
+						height={256}
+						alt={'your generated image'}
+						style={{ height: 256, width: 256 }}
+					/>
 				</div>
 			</div>
 			{prompt && <PromptComponent prompt={prompt} />}
