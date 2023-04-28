@@ -30,7 +30,7 @@ export const UserInput = () => {
 	const [apiKey, setApiKey] = useLocalStorage('apiKey', '');
 	const [avatarUrl, setAvatarUrl] = useLocalStorage<string>(
 		'avatarImage',
-		'/placeholder.png',
+		'/placeholder.ico',
 	);
 	const [prompt, setPrompt] = useLocalStorage<string | null>('prompt', null);
 
@@ -45,6 +45,7 @@ export const UserInput = () => {
 			.then(({ avatarUrl, prompt }) => {
 				setAvatarUrl(avatarUrl);
 				setPrompt(prompt);
+				setError(null);
 			})
 			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
@@ -97,7 +98,7 @@ export const UserInput = () => {
 			<div className="mt-4">
 				<div className="flex h-64 w-full items-center justify-center rounded-md bg-gray-700">
 					<Image
-						src={avatarUrl ?? '/placeholder.png'}
+						src={avatarUrl ?? '/placeholder.ico'}
 						width={256}
 						height={256}
 						alt={'your generated image'}
