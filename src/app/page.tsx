@@ -9,11 +9,12 @@ export default async function Home() {
 		next: { revalidate: 60 * 60 },
 	})
 		.then((res) => res.json())
-		.then(({ options }) => options as string[]);
+		.then(({ options }) => options as string[])
+		.catch(() => [] as string[]);
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center bg-gray-900">
-			<UserInput genres={genres ?? []} />
+			<UserInput genres={genres} />
 			<InfoSection />
 			<Analytics />
 		</div>
