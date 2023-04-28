@@ -1,6 +1,6 @@
 export const InfoSection = () => {
 	return (
-		<div className="mt-6 max-w-md px-4 text-gray-300">
+		<div className="my-6 max-w-md px-4 text-gray-300">
 			<h2 className="mb-2 font-semibold">How do I get an API key?</h2>
 			<ol className="list-inside list-decimal">
 				<li>

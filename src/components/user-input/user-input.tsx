@@ -19,7 +19,7 @@ const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 		}),
 	}).then((res) => res.json());
 
-export const UserInput = ({ genres }: { genres: string[] }) => {
+export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 	const [username, setUsername] = useLocalStorage('username', '');
 	const [apiKey, setApiKey] = useLocalStorage('apiKey', '');
 	const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ export const UserInput = ({ genres }: { genres: string[] }) => {
 	};
 
 	return (
-		<div className="w-full max-w-md rounded-md bg-gray-800 p-8 shadow-lg">
+		<div className="mt-4 w-full max-w-md rounded-md bg-gray-800 p-8 shadow-lg">
 			<h1 className="mb-6 text-center text-2xl font-bold leading-tight text-white md:text-3xl">
 				Generate your own AI gamer avatar images
 			</h1>
