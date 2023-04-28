@@ -31,7 +31,8 @@ export const InfoSection = () => {
 					href={'https://github.com/zaunermax/gamertag-avatar-generator'}
 				>
 					open source
-				</a>
+				</a>{' '}
+				- give it a ⭐💖
 			</h2>
 		</div>
 	);
