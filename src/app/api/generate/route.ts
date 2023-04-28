@@ -2,13 +2,12 @@ import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
 
 const dallePrompts = [
+	// Generic
 	'Cool {{gamerTag}} gamer avatar, stylized portrait, neon colors, futuristic headset, cyberpunk theme',
 	'{{gamerTag}} gaming mascot, chibi character, holding controller, vibrant colors, action pose',
-	'{{gamerTag}} illustrated gaming avatar, anime style, powerful pose, wielding gaming weapon, dynamic background',
-	'{{gamerTag}} gaming avatar, fantasy character, RPG-inspired, wielding mystical weapon, vivid colors',
 	'Abstract {{gamerTag}} gamer profile, modern art style, gaming symbols, dynamic shapes, contrasting colors',
 	'{{gamerTag}} sci-fi gaming avatar, robotic character, futuristic armor, glowing accents, intense expression',
-	'Graffiti-style {{gamerTag}} gamer avatar, street art influence, spray paint textures, bold typography, urban vibes',
+	'Graffiti-style {{gamerTag}} gamer avatar, street art influence, spray paint textures, urban vibes',
 	'{{gamerTag}} adventure gaming avatar, treasure hunter character, explorer outfit, exotic location, vibrant colors',
 
 	// FPS (First-Person Shooter)
@@ -20,11 +19,13 @@ const dallePrompts = [
 	'{{gamerTag}} as a medieval RPG character, in the style of a fantasy painting, wielding a sword and shield',
 	'Illustration of {{gamerTag}} as a mysterious mage in a classic RPG, casting a powerful spell',
 	'{{gamerTag}} as a stealthy rogue character in a dark fantasy RPG setting, preparing for a stealthy attack',
+	'{{gamerTag}} gaming avatar, fantasy character, RPG-inspired, wielding mystical weapon, vivid colors',
 
 	// Anime
 	'{{gamerTag}} as an anime-style gaming protagonist, in a colorful digital world, ready for action',
 	'Illustration of {{gamerTag}} in the style of a mecha anime pilot, piloting a giant robot suit',
 	'{{gamerTag}} as a heroic anime character, in a vibrant virtual reality game setting, sword in hand',
+	'{{gamerTag}} illustrated gaming avatar, anime style, powerful pose, wielding gaming weapon, dynamic background',
 
 	// Racing Games
 	'{{gamerTag}} as a professional race car driver, in a stylized racing game, surrounded by fast cars',
