@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLocalStorage } from '@/hooks';
-import { LoadingSpinner } from '@/components/loading-spinner/loading-spinner';
+import { LoadingSpinner } from '@/components/loading-spinner';
 import { PromptComponent } from '@/components/used-prompt';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
