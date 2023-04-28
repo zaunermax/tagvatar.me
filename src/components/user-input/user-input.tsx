@@ -62,7 +62,7 @@ export const UserInput = () => {
 			>
 				{loading ? <LoadingSpinner /> : 'Generate Image'}
 			</button>
-			<div className="mt-6">
+			<div className="mt-4">
 				<div className="flex h-64 w-full items-center justify-center rounded-md bg-gray-700">
 					{avatarUrl ? (
 						<img src={avatarUrl} className="max-h-full max-w-full" />

@@ -1,8 +1,8 @@
 export const InfoSection = () => {
 	return (
-		<div className="mt-6 text-gray-300 max-w-md px-4">
-			<h2 className="font-semibold mb-2">How do I get an API key?</h2>
-			<ol className="list-decimal list-inside">
+		<div className="mt-6 max-w-md px-4 text-gray-300">
+			<h2 className="mb-2 font-semibold">How do I get an API key?</h2>
+			<ol className="list-inside list-decimal">
 				<li>
 					Create an account on{' '}
 					<a
@@ -21,10 +21,8 @@ export const InfoSection = () => {
 						the api key section
 					</a>
 				</li>
-				<li>Generate a new secret key and copy it</li>
-				<li>Create a new API key and copy it to the input above</li>
-				<li>The first 5$ are completely free</li>
-				<li>You can generate a lot of images with that</li>
+				<li>Generate a new secret key and copy it to the input</li>
+				<li>The first 5$ worth of generation is free</li>
 			</ol>
 		</div>
 	);
