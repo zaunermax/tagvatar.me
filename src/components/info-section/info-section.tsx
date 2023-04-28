@@ -24,6 +24,15 @@ export const InfoSection = () => {
 				<li>Generate a new secret key and copy it to the input</li>
 				<li>The first 5$ worth of generation is free</li>
 			</ol>
+			<h2 className="mt-4 font-semibold">
+				This project is{' '}
+				<a
+					className={'font-medium text-blue-600 hover:underline dark:text-blue-500'}
+					href={'https://github.com/zaunermax/gamertag-avatar-generator'}
+				>
+					open source
+				</a>
+			</h2>
 		</div>
 	);
 };
