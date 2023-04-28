@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useLocalStorage } from '@/hooks';
 import { LoadingSpinner } from '@/components/loading-spinner/loading-spinner';
+import { PromptComponent } from '@/components/used-prompt';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string) =>
 	fetch('/api/generate', {
@@ -21,11 +22,15 @@ export const UserInput = () => {
 	const [apiKey, setApiKey] = useLocalStorage('apiKey', '');
 	const [loading, setLoading] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+	const [prompt, setPrompt] = useState<string | null>(null);
 
 	const generateImage = () => {
 		setLoading(true);
 		getGeneratedImage(username, apiKey)
-			.then(({ avatarUrl }) => setAvatarUrl(avatarUrl))
+			.then(({ avatarUrl, prompt }) => {
+				setAvatarUrl(avatarUrl);
+				setPrompt(prompt);
+			})
 			.finally(() => setLoading(false));
 	};
 
@@ -66,6 +71,7 @@ export const UserInput = () => {
 					)}
 				</div>
 			</div>
+			{prompt && <PromptComponent prompt={prompt} />}
 		</div>
 	);
 };
