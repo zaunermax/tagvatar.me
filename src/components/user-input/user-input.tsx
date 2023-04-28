@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useLocalStorage } from '@/hooks';
 import { LoadingSpinner } from '@/components/loading-spinner/loading-spinner';
 import { PromptComponent } from '@/components/used-prompt';
-import { GameGenre } from '@/utils';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 	fetch('/api/generate', {
@@ -25,7 +24,7 @@ export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 	const [loading, setLoading] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 	const [prompt, setPrompt] = useState<string | null>(null);
-	const [genre, setGenre] = useState<string>(GameGenre.Random);
+	const [genre, setGenre] = useState<string>('Random');
 
 	const generateImage = () => {
 		setLoading(true);
@@ -59,7 +58,7 @@ export const UserInput = ({ genres = [] }: { genres: string[] }) => {
 				/>
 				<select
 					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
-					defaultValue={GameGenre.Random}
+					defaultValue={'Random'}
 					onChange={(e) => setGenre(e.target.value)}
 				>
 					{genres?.map((genre) => (
