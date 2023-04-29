@@ -52,7 +52,7 @@ export const UserInput = () => {
 	};
 
 	return (
-		<div className="mt-4 w-full max-w-md rounded-md bg-gray-800 p-8 shadow-lg">
+		<div className="mt-6 w-full max-w-md rounded-md bg-gray-800 p-8 shadow-lg">
 			<h1 className="mb-6 text-center text-2xl font-bold leading-tight text-white md:text-3xl">
 				Generate your own AI gamer avatar images
 			</h1>

@@ -1,14 +1,28 @@
 import { UserInput } from '@/components/user-input';
 import { InfoSection } from '@/components/info-section';
 import { Analytics } from '@vercel/analytics/react';
-import { getServerURL } from '@/utils';
+import Image from 'next/image';
 
 export default async function Home() {
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center bg-gray-900">
-			<UserInput />
-			<InfoSection />
-			<Analytics />
+		<div className="relative min-h-screen">
+			<Image
+				src={'/background.png'}
+				alt={''}
+				layout={'fill'}
+				objectFit={'cover'}
+				quality={100}
+				className={'brightness-50'}
+			/>
+			<div
+				className={
+					'absolute flex h-full w-screen flex-col items-center overflow-y-scroll'
+				}
+			>
+				<UserInput />
+				<InfoSection />
+				<Analytics />
+			</div>
 		</div>
 	);
 }
