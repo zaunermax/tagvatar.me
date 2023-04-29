@@ -9,10 +9,10 @@ export default async function Home() {
 			<Image
 				src={'/background.png'}
 				alt={''}
-				layout={'fill'}
-				objectFit={'cover'}
+				fill={true}
+				sizes={'100vw'}
 				quality={100}
-				className={'brightness-50'}
+				className={'object-cover brightness-50'}
 			/>
 			<div
 				className={
