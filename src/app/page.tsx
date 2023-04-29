@@ -1,7 +1,7 @@
 import { UserInput } from '@/components/user-input';
 import { InfoSection } from '@/components/info-section';
 import { Analytics } from '@vercel/analytics/react';
-import Image from 'next/image';
+import { default as Image } from 'next/image';
 
 export default async function Home() {
 	return (
@@ -13,6 +13,7 @@ export default async function Home() {
 				sizes={'100vw'}
 				quality={100}
 				className={'object-cover brightness-50'}
+				loading={'eager'}
 			/>
 			<div
 				className={

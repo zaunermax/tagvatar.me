@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useLocalStorage } from '@/hooks';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { PromptComponent } from '@/components/used-prompt';
-import Image from 'next/image';
+import { default as Image } from 'next/image';
 import { GameGenre } from '@/utils';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
