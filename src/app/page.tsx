@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default async function Home() {
 	return (
-		<div className="relative min-h-screen">
+		<div className="relative min-h-screen bg-gray-900">
 			<Image
 				src={'/background.png'}
 				alt={''}
