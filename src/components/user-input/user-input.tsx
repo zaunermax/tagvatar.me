@@ -5,7 +5,7 @@ import { useLocalStorage } from '@/hooks';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { PromptComponent } from '@/components/used-prompt';
 import { default as Image } from 'next/image';
-import { GameGenre } from '@/utils';
+import { GameGenre, handleFetchErrors } from '@/utils';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 	fetch('/api/generate', {
@@ -19,11 +19,6 @@ const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 			genre,
 		}),
 	});
-
-const handleErrors = async (res: Response) => {
-	if (!res.ok) throw new Error((await res.json()).message);
-	return res.json();
-};
 
 export const UserInput = () => {
 	const [username, setUsername] = useLocalStorage('username', '');
@@ -41,7 +36,7 @@ export const UserInput = () => {
 	const generateImage = () => {
 		setLoading(true);
 		getGeneratedImage(username, apiKey, genre)
-			.then(handleErrors)
+			.then(handleFetchErrors)
 			.then(({ avatarUrl, prompt }) => {
 				setAvatarUrl(avatarUrl);
 				setPrompt(prompt);

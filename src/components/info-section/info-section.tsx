@@ -38,7 +38,7 @@ export const InfoSection = () => {
 				>
 					open source
 				</a>{' '}
-				- give it a ⭐💖
+				- give it a ⭐
 			</h2>
 			<a href={'https://ko-fi.com/mxmlnznr'} className={'mt-4 block'} target={'_blank'}>
 				<Image className={'w-1/2'} src={image} alt={'buy me a ko-fi'} />
