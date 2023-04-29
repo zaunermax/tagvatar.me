@@ -64,13 +64,23 @@ export const UserInput = () => {
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
-				<input
-					type="password"
-					placeholder="OpenAI API Key"
-					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
-					value={apiKey}
-					onChange={(e) => setApiKey(e.target.value)}
-				/>
+				<div className="flex">
+					<input
+						type="password"
+						placeholder="OpenAI API Key"
+						className="w-full rounded-md rounded-r-none border border-gray-700 bg-gray-700 px-4 py-2 text-white"
+						value={apiKey}
+						onChange={(e) => setApiKey(e.target.value)}
+					/>
+					<a
+						href="#how-to-api-key"
+						className={
+							'inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-200 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400'
+						}
+					>
+						?
+					</a>
+				</div>
 				<select
 					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
 					defaultValue={'Random'}
