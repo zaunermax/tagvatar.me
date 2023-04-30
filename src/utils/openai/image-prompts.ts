@@ -16,18 +16,22 @@ export enum GameGenre {
 // Generic
 export const genericPrompts = [
 	'Cool {{gamerTag}} gamer avatar, stylized portrait, neon colors, futuristic headset, cyberpunk theme',
-	'{{gamerTag}} gaming mascot, chibi character, holding controller, vibrant colors, action pose',
-	'Abstract {{gamerTag}} gamer profile, modern art style, gaming symbols, dynamic shapes, contrasting colors',
 	'{{gamerTag}} sci-fi gaming avatar, robotic character, futuristic armor, glowing accents, intense expression',
-	'Graffiti-style {{gamerTag}} gamer avatar, street art influence, spray paint textures, urban vibes',
+	'{{gamerTag}} gaming avatar, futuristic character, cyberpunk style, neon colors, intense expression',
+	'{{gamerTag}} gaming mascot, chibi character, holding controller, vibrant colors, action pose',
 	'{{gamerTag}} adventure gaming avatar, treasure hunter character, explorer outfit, exotic location, vibrant colors',
+	'Graffiti-style {{gamerTag}} gamer avatar, street art influence, spray paint textures, urban vibes',
+	'Robotic {{gamerTag}} avatar, upper torso, mech-inspired design, metallic armor, glowing LED lights, futuristic theme',
+	'Stylized {{gamerTag}} gamer avatar, robotic cybernetic character, half-human half-robot, advanced technology, metallic shades, neon accents',
+	'Retro-futuristic {{gamerTag}} avatar, robotic humanoid, upper body, vintage sci-fi aesthetic, bright neon colors, advanced cybernetics',
 ];
 
 // FPS (First-Person Shooter)
 export const fpsPrompts = [
-	'{{gamerTag}} as a futuristic FPS game character, cyberpunk style, armed with advanced weapons',
-	'Illustration of {{gamerTag}} in an intense military FPS setting, realistic style, holding a sniper rifle',
 	'{{gamerTag}} as a sci-fi first-person shooter protagonist, battle-worn, in a neon-lit environment',
+	'Illustration of {{gamerTag}} in an intense military FPS setting, realistic style, holding a sniper rifle',
+	'{{gamerTag}} FPS gaming avatar, battle-hardened mercenary, explosive action, urban warfare setting, gritty comic book style',
+	'{{gamerTag}} as a futuristic FPS game character, cyberpunk style, armed with advanced weapons',
 	'{{gamerTag}} as a skilled zombie hunter in a post-apocalyptic FPS world, carrying powerful firearms',
 	'Illustration of {{gamerTag}} as an elite space marine in an alien-infested FPS setting, blasting extraterrestrial enemies',
 ];
@@ -116,7 +120,7 @@ export const rhythmPrompts = [
 ];
 
 // Concatenated array
-export const dallePrompts = [
+export const allPrompts = [
 	...genericPrompts,
 	...fpsPrompts,
 	...rpgPrompts,
@@ -142,5 +146,5 @@ export const enumToPrompts = {
 	[GameGenre.MMORPG]: mmorpgPrompts,
 	[GameGenre.Puzzle]: puzzlePrompts,
 	[GameGenre.Rhythm]: rhythmPrompts,
-	[GameGenre.Random]: dallePrompts,
+	[GameGenre.Random]: allPrompts,
 };

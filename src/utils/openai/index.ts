@@ -1,1 +1,1 @@
-export * from './dalle-prompts';
+export * from './image-prompts';

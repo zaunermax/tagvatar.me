@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
-import { dallePrompts, enumToPrompts, GameGenre } from '@/utils';
+import { allPrompts, enumToPrompts, GameGenre } from '@/utils';
 
 function getRandomGamerAvatar(gamerAvatars: string[], gamerTag: string) {
 	const randomIndex = Math.floor(Math.random() * gamerAvatars.length);
@@ -25,11 +25,17 @@ const getOpenAiImage = (prompt: string, apiKey: string) => {
 };
 
 export async function POST(request: Request) {
-	const { gamerTag, apiKey, genre } = await request.json();
+	const { gamerTag = '', apiKey = null, genre = GameGenre.Random } = await request.json();
 
-	const prompts = enumToPrompts[genre as GameGenre] ?? dallePrompts;
+	if (!gamerTag)
+		return NextResponse.json({ message: 'No gamer tag provided' }, { status: 400 });
 
-	const prompt = getRandomGamerAvatar(prompts, gamerTag);
+	if (!apiKey)
+		return NextResponse.json({ message: 'No API key provided' }, { status: 400 });
+
+	const prompts = enumToPrompts[genre as GameGenre] ?? allPrompts;
+
+	const prompt = getRandomGamerAvatar(prompts, gamerTag.slice(0, 50));
 
 	try {
 		const avatarUrl = (await getOpenAiImage(prompt, apiKey)) ?? '';
@@ -45,8 +51,4 @@ export async function POST(request: Request) {
 			{ status: 400 },
 		);
 	}
-}
-
-export async function GET() {
-	return NextResponse.json({ options: Object.values(GameGenre) });
 }
