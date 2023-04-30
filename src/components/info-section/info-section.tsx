@@ -1,12 +1,18 @@
+'use client';
+
 import { default as Image } from 'next/image';
 import image from './assets/kofi.png';
+import { useSearchParamScroll } from '@/hooks';
 
 export const InfoSection = () => {
+	useSearchParamScroll('focus');
+
 	return (
-		<div className="my-6 w-full max-w-md rounded-md bg-gray-800 p-8 text-gray-300 shadow-lg">
-			<h2 className="mb-2 font-semibold" id={'how-to-api-key'}>
-				How do I get an API key?
-			</h2>
+		<div
+			className="my-6 w-full max-w-md rounded-md bg-gray-800 p-8 text-gray-300 shadow-lg"
+			id="how-to-api-key"
+		>
+			<h2 className="mb-2 font-semibold">How do I get an API key?</h2>
 			<ol className="list-inside list-decimal">
 				<li>
 					Create an account on{' '}

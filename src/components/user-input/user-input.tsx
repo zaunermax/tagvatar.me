@@ -6,6 +6,7 @@ import { LoadingSpinner } from '@/components/loading-spinner';
 import { PromptComponent } from '@/components/used-prompt';
 import { default as Image } from 'next/image';
 import { GameGenre, handleFetchErrors } from '@/utils';
+import { default as Link } from 'next/link';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 	fetch('/api/generate', {
@@ -67,14 +68,15 @@ export const UserInput = () => {
 						value={apiKey}
 						onChange={(e) => setApiKey(e.target.value)}
 					/>
-					<a
-						href="#how-to-api-key"
+					<Link
+						href="?focus=how-to-api-key"
+						replace
 						className={
 							'inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-200 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400'
 						}
 					>
 						?
-					</a>
+					</Link>
 				</div>
 				<select
 					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
