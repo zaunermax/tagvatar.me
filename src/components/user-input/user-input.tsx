@@ -7,6 +7,7 @@ import { PromptComponent } from '@/components/used-prompt';
 import { default as Image } from 'next/image';
 import { GameGenre, handleFetchErrors } from '@/utils';
 import { default as Link } from 'next/link';
+import { TextInput } from 'flowbite-react';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 	fetch('/api/generate', {
@@ -56,30 +57,32 @@ export const UserInput = () => {
 				<input
 					type="text"
 					placeholder="Gamertag"
-					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
+					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
-				<div className="flex">
-					<input
+				<div>
+					<TextInput
 						type="password"
 						placeholder="OpenAI API Key"
-						className="w-full rounded-md rounded-r-none border border-gray-700 bg-gray-700 px-4 py-2 text-white"
+						className="w-full"
 						value={apiKey}
+						helperText={
+							!apiKey && (
+								<Link
+									className="text-blue-600 hover:underline dark:text-blue-500"
+									href="?focus=how-to-api-key"
+									replace
+								>
+									How to get an API key?
+								</Link>
+							)
+						}
 						onChange={(e) => setApiKey(e.target.value)}
 					/>
-					<Link
-						href="?focus=how-to-api-key"
-						replace
-						className={
-							'inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-200 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400'
-						}
-					>
-						?
-					</Link>
 				</div>
 				<select
-					className="w-full rounded-md border border-gray-700 bg-gray-700 px-4 py-2 text-white"
+					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 					defaultValue={'Random'}
 					onChange={(e) => setGenre(e.target.value)}
 				>
@@ -92,7 +95,7 @@ export const UserInput = () => {
 			</div>
 			<button
 				disabled={loading}
-				className="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
+				className="mr-2 mt-4 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 				onClick={generateImage}
 			>
 				{loading ? <LoadingSpinner /> : `${prompt ? 'Re-' : ''}Generate Image`}

@@ -2,12 +2,13 @@ import { UserInput } from '@/components/user-input';
 import { InfoSection } from '@/components/info-section';
 import { Analytics } from '@vercel/analytics/react';
 import { default as Image } from 'next/image';
+import { NavBar } from '@/components/nav-bar';
 
 export default async function Home() {
 	return (
 		<div className="relative min-h-screen bg-gray-900">
 			<Image
-				src={'/background.png'}
+				src={'/background-new.png'}
 				alt={''}
 				fill={true}
 				sizes={'100vw'}
@@ -20,6 +21,7 @@ export default async function Home() {
 					'absolute flex h-full w-screen flex-col items-center overflow-y-scroll'
 				}
 			>
+				<NavBar />
 				<UserInput />
 				<InfoSection />
 				<Analytics />
