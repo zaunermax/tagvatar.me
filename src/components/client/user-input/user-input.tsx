@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLocalStorage } from '@/hooks';
-import { LoadingSpinner, PromptComponent } from '@/components/server';
+import { Container, LoadingSpinner, PromptComponent } from '@/components/server';
 import { default as Image } from 'next/image';
 import { GameGenre, handleFetchErrors } from '@/utils';
 import { default as Link } from 'next/link';
@@ -48,7 +48,7 @@ export const UserInput = () => {
 	};
 
 	return (
-		<div className="mt-6 w-full max-w-md rounded-md bg-gray-800 p-8 shadow-lg">
+		<Container>
 			<h1 className="mb-6 text-center text-2xl font-bold leading-tight text-white md:text-3xl">
 				Generate your own AI gamer avatar images
 			</h1>
@@ -116,6 +116,6 @@ export const UserInput = () => {
 				</div>
 			</div>
 			{prompt && <PromptComponent prompt={prompt} />}
-		</div>
+		</Container>
 	);
 };
