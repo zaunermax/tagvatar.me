@@ -19,6 +19,7 @@ export const InfoSection = () => {
 					<a
 						className="underline hover:text-blue-400"
 						href="https://platform.openai.com/"
+						target={'_blank'}
 					>
 						openai.com
 					</a>
@@ -28,6 +29,7 @@ export const InfoSection = () => {
 					<a
 						className="underline hover:text-blue-400"
 						href="https://platform.openai.com/account/api-keys"
+						target={'_blank'}
 					>
 						the api key section
 					</a>

@@ -2,12 +2,13 @@
 
 import { Avatar, Badge, Dropdown, Navbar } from 'flowbite-react';
 import { default as Image } from 'next/image';
+import { default as Link } from 'next/link';
 
 export const NavBar = () => {
 	return (
 		<div className="flex w-full max-w-7xl px-0 md:px-6">
 			<Navbar fluid={true} rounded={true} className="w-full max-w-7xl md:mt-6">
-				<Navbar.Brand href="#">
+				<Navbar.Brand href="/">
 					<Image
 						src={'/logo.png'}
 						alt={'the tagvatar logo'}
@@ -41,16 +42,20 @@ export const NavBar = () => {
 							<span className="block text-sm">Anonymous</span>
 						</Dropdown.Header>
 						<Dropdown.Item>
-							Settings{' '}
-							<Badge className="ml-2" color="warning">
-								soon
-							</Badge>
+							<Link href={'/settings'} className={'w-200'}>
+								<span className="flex flex-wrap gap-2">
+									Settings{' '}
+									<Badge className="ml-2" color="warning">
+										soon
+									</Badge>
+								</span>
+							</Link>
 						</Dropdown.Item>
 					</Dropdown>
 					<Navbar.Toggle />
 				</div>
 				<Navbar.Collapse>
-					<Navbar.Link href="#">DALL-E</Navbar.Link>
+					<Navbar.Link href="/">DALL-E</Navbar.Link>
 					<Navbar.Link href="#" disabled>
 						<span className="flex flex-wrap gap-2">
 							<span>Stable Diffusion</span>
