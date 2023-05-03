@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert } from 'flowbite-react';
-import { Container } from '@/components/server';
+import { Container } from '@/components/server/container';
 import { HiInformationCircle } from 'react-icons/hi';
 
 export default function Settings() {

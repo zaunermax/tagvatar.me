@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { useLocalStorage } from '@/hooks';
-import { Container, LoadingSpinner, PromptComponent } from '@/components/server';
+import { Container } from '@/components/server/container';
+import { PromptComponent } from '@/components/server/used-prompt';
+import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 import { default as Image } from 'next/image';
 import { GameGenre, handleFetchErrors } from '@/utils';
 import { default as Link } from 'next/link';
