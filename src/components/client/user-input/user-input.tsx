@@ -9,6 +9,8 @@ import { default as Image } from 'next/image';
 import { GameGenre, handleFetchErrors } from '@/utils';
 import { default as Link } from 'next/link';
 import { TextInput } from 'flowbite-react';
+import { useAtom } from 'jotai';
+import { openaiApiKeyAtom } from '@/atoms';
 
 const getGeneratedImage = (gamerTag: string, apiKey: string, genre: string) =>
 	fetch('/api/generate', {
@@ -35,6 +37,10 @@ export const UserInput = () => {
 	const [loading, setLoading] = useState(false);
 	const [genre, setGenre] = useState<string>(GameGenre.Random);
 	const [error, setError] = useState<string | null>(null);
+
+	const key = useAtom(openaiApiKeyAtom);
+
+	console.log('key', key);
 
 	const generateImage = () => {
 		setLoading(true);
