@@ -17,11 +17,11 @@
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-	width: 15px;
+	width: 5px;
 }
 
 *::-webkit-scrollbar-track {
-	background: var(--primary);
+	background: transparent;
 	border-radius: 5px;
 }
 
