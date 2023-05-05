@@ -1,10 +1,15 @@
 import { LoadingSVG } from './comopnents/loading-svg';
 
-export const LoadingSpinner = () => {
+type LoadingSpinnerProps = {
+	className?: string;
+	text?: string;
+};
+
+export const LoadingSpinner = ({ className, text }: LoadingSpinnerProps) => {
 	return (
-		<div role="status">
+		<div role="status" className={className}>
 			<LoadingSVG />
-			Loading...
+			{text ?? 'Loading...'}
 		</div>
 	);
 };

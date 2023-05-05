@@ -8,6 +8,7 @@ import { HiInformationCircle } from 'react-icons/hi';
 
 import { settingsAtom } from '@/atoms';
 import { InfoSection } from '@/components/client/info-section';
+import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 import { Container } from '@/components/server/container';
 import { useDebounce } from '@/hooks/use-debounce';
 import { handleFetchErrors } from '@/utils/fetch-utils';
@@ -17,26 +18,31 @@ const getIsKeyValid = (openApiKey: string) => {
 };
 
 export default function Settings() {
-	const [{ openaiApiKey, openaiApiKeyValid }, setSettings] = useAtom(settingsAtom);
-
 	const openAiApiKeyId = useId();
 	const router = useRouter();
+
+	const [{ openaiApiKey, openaiApiKeyValid }, setSettings] = useAtom(settingsAtom);
+	const [loading, setLoading] = useState(false);
 
 	const debouncedOpenAiApiKey = useDebounce(openaiApiKey, 500);
 
 	useEffect(() => {
 		if (debouncedOpenAiApiKey) {
+			setLoading(true);
 			getIsKeyValid(debouncedOpenAiApiKey)
 				.then(handleFetchErrors)
 				.then(({ isValid }) =>
 					setSettings((prev) => ({ ...prev, openaiApiKeyValid: isValid })),
-				);
+				)
+				.finally(() => setLoading(false));
 		}
 	}, [debouncedOpenAiApiKey, setSettings]);
 
-	const goToDalle = () => {
-		router.push('/');
-	};
+	useEffect(() => {
+		if (!openaiApiKey) setSettings((prev) => ({ ...prev, openaiApiKeyValid: null }));
+	}, [openaiApiKey, setSettings]);
+
+	const goToDalle = useCallback(() => router.push('/'), [router]);
 
 	const onChangeOpenAPIKey = useCallback(
 		(e: FormEvent<HTMLInputElement>) =>
@@ -61,7 +67,7 @@ export default function Settings() {
 					value={openaiApiKey}
 					onChange={onChangeOpenAPIKey}
 				/>
-				{openaiApiKeyValid === false && openaiApiKey && (
+				{openaiApiKeyValid === false && !loading && (
 					<Alert className="mt-4" color="warning" icon={HiInformationCircle}>
 						Your key does not seem to be valid.
 					</Alert>
@@ -101,10 +107,16 @@ export default function Settings() {
 				<Button
 					className="mt-4 w-full"
 					gradientDuoTone="purpleToPink"
-					disabled={!openaiApiKeyValid}
+					disabled={!openaiApiKeyValid || loading}
 					onClick={goToDalle}
 				>
-					{openaiApiKeyValid ? 'Back to DALL-E' : 'Enter a valid API key first'}
+					{loading ? (
+						<LoadingSpinner text={'Checking key...'} />
+					) : openaiApiKeyValid ? (
+						'Back to DALL-E'
+					) : (
+						'Enter a valid API key first'
+					)}
 				</Button>
 			</Container>
 			<InfoSection />
