@@ -1,4 +1,5 @@
 import { default as Image } from 'next/image';
+
 import { NavBar } from '@/components/client/nav-bar';
 
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
