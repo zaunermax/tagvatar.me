@@ -1,1 +1,1 @@
-export * from './settings.atom';
+export { settingsAtom, openaiApiKeyAtom } from './settings.atom';

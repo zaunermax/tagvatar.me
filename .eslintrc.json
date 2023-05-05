@@ -1,3 +1,38 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+    "rules": {
+      "import/first": ["error"],
+      "import/no-useless-path-segments": ["error"],
+      "import/no-duplicates": ["error"],
+      "import/order": [
+        "error",
+        {
+          "pathGroups": [
+            {
+              "pattern": "@/**",
+              "group": "internal"
+            },
+            {
+              "pattern": "*.+(css|sass|less|scss|pcss|styl)",
+              "patternOptions": { "dot": true, "nocomment": true, "matchBase": true },
+              "group": "unknown"
+            }
+          ],
+          "groups": [
+            ["external", "builtin"],
+            "internal",
+            ["index", "sibling", "parent"],
+            "object",
+            "type",
+            "unknown"
+          ],
+          "alphabetize": {
+            "order": "asc"
+          },
+          "newlines-between": "always",
+          "pathGroupsExcludedImportTypes": ["type"],
+          "warnOnUnassignedImports": true
+        }
+      ]
+    }
 }

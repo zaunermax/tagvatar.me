@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Badge, Dropdown, Navbar } from 'flowbite-react';
+import { Avatar, Badge, Button, Dropdown, Navbar } from 'flowbite-react';
 import { default as Image } from 'next/image';
 import { default as Link } from 'next/link';
 
@@ -18,56 +18,23 @@ export const NavBar = () => {
 					/>
 				</Navbar.Brand>
 				<div className="flex md:order-2">
-					<Dropdown
-						arrowIcon={false}
-						inline={true}
-						label={
-							<Avatar
-								alt="User settings"
-								img={() => (
-									<Image
-										src={'/avatar-placeholder.png'}
-										alt={'the tagvatar logo'}
-										width={64}
-										height={64}
-										className="h-11 w-11 rounded-full"
-									/>
-								)}
-								rounded={true}
-								className={'mr-2 md:mr-0'}
-							/>
-						}
-					>
-						<Dropdown.Header>
-							<span className="block text-sm">Anonymous</span>
-						</Dropdown.Header>
-						<Dropdown.Item>
-							<Link href={'/settings'} className={'w-200'}>
-								<span className="flex flex-wrap gap-2">
-									Settings{' '}
-									<Badge className="ml-2" color="warning">
-										soon
-									</Badge>
-								</span>
-							</Link>
-						</Dropdown.Item>
-					</Dropdown>
-					<Navbar.Toggle />
+					<Link href="/settings">
+						<Button gradientDuoTone="purpleToPink">Settings</Button>
+					</Link>
+					<Navbar.Toggle className="ml-2 md:ml-0" />
 				</div>
 				<Navbar.Collapse>
-					<Navbar.Link href="/">DALL-E</Navbar.Link>
-					<Navbar.Link href="#" disabled>
-						<span className="flex flex-wrap gap-2">
-							<span>Stable Diffusion</span>
-							<Badge color="warning">soon</Badge>
-						</span>
-					</Navbar.Link>
-					<Navbar.Link href="#" disabled>
-						<span className="flex flex-wrap gap-2">
-							<span>Midjourney</span>
-							<Badge color="warning">soon</Badge>
-						</span>
-					</Navbar.Link>
+					<Link href={'/'}>
+						<Navbar.Link as={'span'}>DALL-E</Navbar.Link>
+					</Link>
+					<Link href={'#'}>
+						<Navbar.Link as={'span'} disabled>
+							<span className="flex flex-wrap gap-2">
+								<span>Stable Diffusion</span>
+								<Badge color="warning">soon</Badge>
+							</span>
+						</Navbar.Link>
+					</Link>
 				</Navbar.Collapse>
 			</Navbar>
 		</div>

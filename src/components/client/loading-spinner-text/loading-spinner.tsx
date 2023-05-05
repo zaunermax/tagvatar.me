@@ -1,11 +1,9 @@
-'use client';
-
-import { Spinner } from 'flowbite-react';
+import { LoadingSVG } from './comopnents/loading-svg';
 
 export const LoadingSpinner = () => {
 	return (
 		<div role="status">
-			<Spinner aria-label={'button loading spinner'} />
+			<LoadingSVG />
 			Loading...
 		</div>
 	);

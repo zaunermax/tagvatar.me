@@ -1,9 +1,11 @@
-import './globals.css';
-
-import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
-import { Providers } from './providers';
+import { Inter } from 'next/font/google';
+
 import { AppLayout } from '@/components/server/app-layout';
+
+import { Providers } from './providers';
+
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
