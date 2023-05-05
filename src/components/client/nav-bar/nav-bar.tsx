@@ -8,15 +8,17 @@ export const NavBar = () => {
 	return (
 		<div className="flex w-full max-w-7xl px-0 md:px-6">
 			<Navbar fluid={true} rounded={true} className="w-full max-w-7xl md:mt-6">
-				<Navbar.Brand href="/">
-					<Image
-						src={'/logo.png'}
-						alt={'the tagvatar logo'}
-						width={64}
-						height={64}
-						className="mr-3 h-11 w-11 rounded-full"
-					/>
-				</Navbar.Brand>
+				<Link href={'/'}>
+					<Navbar.Brand as={'span'}>
+						<Image
+							src={'/logo.png'}
+							alt={'the tagvatar logo'}
+							width={64}
+							height={64}
+							className="mr-3 h-11 w-11 rounded-full"
+						/>
+					</Navbar.Brand>
+				</Link>
 				<div className="flex md:order-2">
 					<Link href="/settings">
 						<Button gradientDuoTone="purpleToPink">Settings</Button>
