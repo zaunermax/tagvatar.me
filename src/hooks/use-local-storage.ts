@@ -8,10 +8,12 @@ export const useLocalStorage = <S>(
 
 	useEffect(() => {
 		const item = localStorage.getItem(key);
+		console.log('got oida', key, item);
 		if (item) setState(parse(item));
 	}, [key]);
 
 	useEffect(() => {
+		console.log('setz oida', key, state);
 		localStorage.setItem(key, JSON.stringify(state));
 	}, [key, state]);
 

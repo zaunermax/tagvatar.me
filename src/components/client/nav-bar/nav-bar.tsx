@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Badge, Button, Dropdown, Navbar } from 'flowbite-react';
+import { Badge, Button, Navbar } from 'flowbite-react';
 import { default as Image } from 'next/image';
 import { default as Link } from 'next/link';
 
@@ -29,7 +29,7 @@ export const NavBar = () => {
 					<Link href={'/'}>
 						<Navbar.Link as={'span'}>DALL-E</Navbar.Link>
 					</Link>
-					<Link href={'#'}>
+					<Link href={'/'}>
 						<Navbar.Link as={'span'} disabled>
 							<span className="flex flex-wrap gap-2">
 								<span>Stable Diffusion</span>

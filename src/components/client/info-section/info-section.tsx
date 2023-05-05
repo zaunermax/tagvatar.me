@@ -30,7 +30,13 @@ export const InfoSection = () => {
 				className={'mt-4 flex justify-center'}
 				target={'_blank'}
 			>
-				<Image className={'w-1/2'} src={image} alt={'buy me a ko-fi'} />
+				<Image
+					className={'w-1/2'}
+					src={'/kofi.png'}
+					height={170}
+					width={1081}
+					alt={'buy me a ko-fi'}
+				/>
 			</a>
 		</div>
 	);
