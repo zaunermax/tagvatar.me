@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useEffect, useId, useState } from 'react';
 import { HiInformationCircle } from 'react-icons/hi';
 
-import { settingsAtom } from '@/atoms';
+import { settingsAtom } from '@/atoms/settings.atom';
 import { InfoSection } from '@/components/client/info-section';
 import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 import { Container } from '@/components/server/container';

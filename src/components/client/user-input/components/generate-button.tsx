@@ -3,7 +3,7 @@ import { useAtom } from 'jotai/index';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
-import { openaiApiKeyAtom } from '@/atoms';
+import { openaiApiKeyAtom } from '@/atoms/settings.atom';
 import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 
 type GenerateButtonProps = {

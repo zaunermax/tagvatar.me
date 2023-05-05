@@ -5,10 +5,10 @@ import { useAtom } from 'jotai';
 import { default as Image } from 'next/image';
 import { useState } from 'react';
 
-import { openaiApiKeyAtom } from '@/atoms';
+import { dalleAtom } from '@/atoms/dalle.atom';
+import { openaiApiKeyAtom, usernameAtom } from '@/atoms/settings.atom';
 import { Container } from '@/components/server/container';
 import { PromptComponent } from '@/components/server/used-prompt';
-import { useLocalStorage } from '@/hooks/use-local-storage';
 import { handleFetchErrors } from '@/utils/fetch-utils';
 import { GameGenre } from '@/utils/openai';
 
@@ -16,26 +16,19 @@ import { GenerateButton } from './components/generate-button';
 import { getGeneratedImage } from './utils/generate-image';
 
 export const UserInput = () => {
-	const [username, setUsername] = useLocalStorage('username', '');
-	const [avatarUrl, setAvatarUrl] = useLocalStorage<string>(
-		'avatarImage',
-		'/placeholder.png',
-	);
-	const [prompt, setPrompt] = useLocalStorage<string | null>('prompt', null);
-
 	const [loading, setLoading] = useState(false);
-	const [genre, setGenre] = useState<string>(GameGenre.Random);
 	const [error, setError] = useState<string | null>(null);
 
 	const [openaiApiKey] = useAtom(openaiApiKeyAtom);
+	const [username, setUsername] = useAtom(usernameAtom);
+	const [{ prompt, avatarUrl, genre }, setDalleState] = useAtom(dalleAtom);
 
 	const generateImage = () => {
 		setLoading(true);
 		getGeneratedImage(username, openaiApiKey, genre)
 			.then(handleFetchErrors)
 			.then(({ avatarUrl, prompt }) => {
-				setAvatarUrl(avatarUrl);
-				setPrompt(prompt);
+				setDalleState((prev) => ({ ...prev, avatarUrl, prompt }));
 				setError(null);
 			})
 			.catch((err) => setError(err.message))
@@ -56,8 +49,9 @@ export const UserInput = () => {
 				/>
 				<select
 					className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-					defaultValue={'Random'}
-					onChange={(e) => setGenre(e.target.value)}
+					defaultValue={genre}
+					value={genre}
+					onChange={(e) => setDalleState((prev) => ({ ...prev, genre: e.target.value }))}
 				>
 					{Object.values(GameGenre)?.map((genre) => (
 						<option key={genre} value={genre}>
