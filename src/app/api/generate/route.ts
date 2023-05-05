@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
-import { allPrompts, enumToPrompts, GameGenre } from '@/utils';
+
+import { allPrompts, enumToPrompts, GameGenre } from '@/utils/openai';
 
 function getRandomGamerAvatar(gamerAvatars: string[], gamerTag: string) {
 	const randomIndex = Math.floor(Math.random() * gamerAvatars.length);
