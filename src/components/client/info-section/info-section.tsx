@@ -4,8 +4,6 @@ import { default as Image } from 'next/image';
 
 import { useSearchParamScroll } from '@/hooks/use-search-param-scroll';
 
-import image from './assets/kofi.png';
-
 export const InfoSection = () => {
 	useSearchParamScroll('focus');
 
