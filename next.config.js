@@ -12,6 +12,15 @@ const nextConfig = {
 	images: {
 		domains: ['oaidalleapiprodscus.blob.core.windows.net'],
 	},
+	redirects: async () => {
+		return [
+			{
+				source: '/',
+				destination: '/dalle',
+				permanent: false,
+			},
+		];
+	},
 };
 
 module.exports = nextConfig;
