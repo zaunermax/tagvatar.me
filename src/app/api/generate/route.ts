@@ -13,8 +13,8 @@ const getOpenAiImage = (prompt: string, apiKey: string) => {
 	const api = new OpenAIApi(openAiConfig);
 
 	return api
-		.createImage({ prompt, n: 1, size: '256x256' })
-		.then((response) => response.data?.data?.[0]?.url)
+		.createImage({ prompt, n: 1, size: '256x256', response_format: 'b64_json' })
+		.then((response) => response.data?.data?.[0]?.b64_json)
 		.catch((error) => {
 			if (error.response) {
 				throw new Error(error.response.data.error.message);
@@ -38,7 +38,8 @@ export async function POST(request: Request) {
 	const prompt = getRandomGamerAvatarPrompt(prompts, gamerTag.slice(0, 50));
 
 	try {
-		const avatarUrl = (await getOpenAiImage(prompt, apiKey)) ?? '';
+		const base64 = await getOpenAiImage(prompt, apiKey);
+		const avatarUrl = `data:image/png;base64,${base64}`;
 		return NextResponse.json({ avatarUrl, prompt });
 	} catch (e) {
 		return NextResponse.json(
