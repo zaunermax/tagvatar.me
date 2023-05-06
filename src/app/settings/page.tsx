@@ -139,7 +139,7 @@ export default function Settings() {
 						value={dreamStudioApiKey}
 						onChange={onChangeSdAPIKey}
 					/>
-					{openaiApiKeyValid === false && !sdPending && (
+					{dreamStudioApiKeyValid === false && !sdPending && (
 						<Alert className="mt-4" color="warning" icon={HiInformationCircle}>
 							Your key does not seem to be valid.
 						</Alert>
