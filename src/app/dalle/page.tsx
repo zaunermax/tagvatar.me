@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai/index';
 import { useCallback, useState } from 'react';
 
-import { currentGenreAtom, writeImageGenStateAtom } from '@/atoms/image-gen-state.atom';
+import { currentGenreAtom, imageGenStateAtom } from '@/atoms/image-gen-state.atom';
 import { openaiApiKeyAtom, usernameAtom } from '@/atoms/settings.atom';
 import { UserInput } from '@/components/client/user-input';
 import { getGeneratedImage } from '@/components/client/user-input/utils/generate-image';
@@ -16,7 +16,7 @@ export default function Home() {
 	const [openaiApiKey] = useAtom(openaiApiKeyAtom);
 	const [gamerTag] = useAtom(usernameAtom);
 	const [genre] = useAtom(currentGenreAtom);
-	const [, setImageGenState] = useAtom(writeImageGenStateAtom);
+	const [{ avatarUrl, prompt }, setImageGenState] = useAtom(imageGenStateAtom);
 
 	const generateImage = useCallback(() => {
 		setLoading(true);
@@ -37,6 +37,8 @@ export default function Home() {
 			generateImage={generateImage}
 			error={error}
 			model={'DALL-E'}
+			avatarUrl={avatarUrl}
+			avatarPrompt={prompt}
 		/>
 	);
 }

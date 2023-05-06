@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai/index';
 import { useCallback, useState, useTransition } from 'react';
 
-import { currentGenreAtom, writeImageGenStateAtom } from '@/atoms/image-gen-state.atom';
+import { currentGenreAtom, imageGenStateAtom } from '@/atoms/image-gen-state.atom';
 import { sdApiKeyAtom, usernameAtom } from '@/atoms/settings.atom';
 import { UserInput } from '@/components/client/user-input';
 import { generateStableDiffusionImage } from '@/server-actions/generate-sd-image';
@@ -15,7 +15,7 @@ export default function StableDiffusion() {
 	const [sdApiKey] = useAtom(sdApiKeyAtom);
 	const [gamerTag] = useAtom(usernameAtom);
 	const [genre] = useAtom(currentGenreAtom);
-	const [, setImageGenState] = useAtom(writeImageGenStateAtom);
+	const [{ sdAvatarUrl, sdPrompt }, setImageGenState] = useAtom(imageGenStateAtom);
 
 	const generateImage = useCallback(() => {
 		setError(null);
@@ -31,7 +31,7 @@ export default function StableDiffusion() {
 				return;
 			}
 
-			setImageGenState((prev) => ({ ...prev, avatarUrl: url, prompt }));
+			setImageGenState((prev) => ({ ...prev, sdAvatarUrl: url, sdPrompt: prompt }));
 		});
 	}, [gamerTag, genre, sdApiKey, setImageGenState]);
 
@@ -42,6 +42,8 @@ export default function StableDiffusion() {
 			generateImage={generateImage}
 			error={error}
 			model={'StableDiffusion'}
+			avatarUrl={sdAvatarUrl}
+			avatarPrompt={sdPrompt}
 		/>
 	);
 }

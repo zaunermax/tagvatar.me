@@ -5,28 +5,21 @@ import { focusAtom } from 'jotai-optics';
 import { GameGenre } from '@/utils/image-prompts';
 
 export type ImageGenStateType = {
-	prompt: string | null;
 	avatarUrl: string;
+	prompt: string | null;
+	sdAvatarUrl: string;
+	sdPrompt: string | null;
 	genre: string;
 };
 
 export const initialImageGenState: ImageGenStateType = {
-	prompt: null,
 	avatarUrl: '/placeholder.png',
+	prompt: null,
+	sdAvatarUrl: '/placeholder.png',
+	sdPrompt: null,
 	genre: GameGenre.Random,
 };
 
 export const imageGenStateAtom = atomWithStorage('image', initialImageGenState);
-
-export const writeImageGenStateAtom = atom(
-	null,
-	(
-		_,
-		set,
-		value: ImageGenStateType | ((prev: ImageGenStateType) => ImageGenStateType),
-	) => {
-		set(imageGenStateAtom, value);
-	},
-);
 
 export const currentGenreAtom = focusAtom(imageGenStateAtom, (s) => s.prop('genre'));

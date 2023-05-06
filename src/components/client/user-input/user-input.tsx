@@ -16,6 +16,8 @@ type UserInputProps = {
 	error: string | null;
 	model: string;
 	apiKey: string;
+	avatarUrl: string;
+	avatarPrompt: string | null;
 };
 
 export const UserInput = ({
@@ -24,8 +26,10 @@ export const UserInput = ({
 	error,
 	model,
 	apiKey,
+	avatarUrl,
+	avatarPrompt,
 }: UserInputProps) => {
-	const [{ avatarUrl, genre, prompt }, setImageGenState] = useAtom(imageGenStateAtom);
+	const [{ genre }, setImageGenState] = useAtom(imageGenStateAtom);
 	const [username, setUsername] = useAtom(usernameAtom);
 
 	return (
@@ -73,7 +77,7 @@ export const UserInput = ({
 						unoptimized
 					/>
 				</div>
-				{prompt && <PromptComponent prompt={prompt} />}
+				{avatarPrompt && <PromptComponent prompt={avatarPrompt} />}
 			</div>
 		</Container>
 	);

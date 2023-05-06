@@ -1,3 +1,5 @@
+'use server';
+
 import {
 	allPrompts,
 	enumToPrompts,
@@ -37,8 +39,8 @@ export const generateStableDiffusionImage = async (
 					text: prompt,
 				},
 			],
-			height: 256,
-			width: 256,
+			height: 512,
+			width: 512,
 			steps: 30,
 		}),
 	});
