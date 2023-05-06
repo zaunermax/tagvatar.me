@@ -3,7 +3,7 @@
 import { TextInput } from 'flowbite-react';
 import { useAtom } from 'jotai';
 import { default as Image } from 'next/image';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { dalleAtom } from '@/atoms/dalle.atom';
 import { openaiApiKeyAtom, usernameAtom } from '@/atoms/settings.atom';
@@ -23,7 +23,7 @@ export const UserInput = () => {
 	const [username, setUsername] = useAtom(usernameAtom);
 	const [{ prompt, avatarUrl, genre }, setDalleState] = useAtom(dalleAtom);
 
-	const generateImage = () => {
+	const generateImage = useCallback(() => {
 		setLoading(true);
 		getGeneratedImage(username, openaiApiKey, genre)
 			.then(handleFetchErrors)
@@ -33,7 +33,7 @@ export const UserInput = () => {
 			})
 			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
-	};
+	}, [genre, openaiApiKey, username, setDalleState]);
 
 	return (
 		<Container>
@@ -72,13 +72,7 @@ export const UserInput = () => {
 			)}
 			<div className="mt-4">
 				<div className="flex h-64 w-full items-center justify-center rounded-md bg-gray-700">
-					<Image
-						src={avatarUrl ?? '/placeholder.png'}
-						width={256}
-						height={256}
-						alt={'your generated image'}
-						style={{ height: 256, width: 256 }}
-					/>
+					<Image src={avatarUrl} width={256} height={256} alt={'your generated image'} />
 				</div>
 			</div>
 			{prompt && <PromptComponent prompt={prompt} />}
