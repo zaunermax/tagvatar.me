@@ -58,23 +58,21 @@ export const UserInput = () => {
 						</option>
 					))}
 				</select>
-			</div>
-			<GenerateButton
-				imageExists={!!prompt}
-				generateImage={generateImage}
-				loading={loading}
-			/>
-			{error && (
-				<div className="mt-4 rounded-md bg-red-600 px-4 py-2 text-white">
-					<p>Something went wrong while generating the image: {error}</p>
-				</div>
-			)}
-			<div className="mt-4">
+				<GenerateButton
+					imageExists={!!prompt}
+					generateImage={generateImage}
+					loading={loading}
+				/>
+				{error && (
+					<div className="rounded-md bg-red-600 px-4 py-2 text-white">
+						<p>Something went wrong while generating the image: {error}</p>
+					</div>
+				)}
 				<div className="flex h-64 w-full items-center justify-center rounded-md bg-gray-700">
 					<Image src={avatarUrl} width={256} height={256} alt={'your generated image'} />
 				</div>
+				{prompt && <PromptComponent prompt={prompt} />}
 			</div>
-			{prompt && <PromptComponent prompt={prompt} />}
 		</Container>
 	);
 };

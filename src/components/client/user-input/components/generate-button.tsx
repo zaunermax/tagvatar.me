@@ -32,7 +32,7 @@ export const GenerateButton = ({
 	return (
 		<Button
 			gradientDuoTone={apiKey ? 'purpleToPink' : 'redToYellow'}
-			className="mt-4 w-full"
+			className="w-full"
 			disabled={loading}
 			onClick={apiKey ? generateImage : linkToSettings}
 		>
