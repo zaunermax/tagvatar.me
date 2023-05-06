@@ -61,6 +61,7 @@ export default function Settings() {
 
 	return (
 		<>
+			<InfoSection />
 			<Container>
 				<h1 className="mb-6 text-center text-2xl font-bold leading-tight text-white md:text-3xl">
 					Settings
@@ -192,7 +193,6 @@ export default function Settings() {
 					</Button>
 				</div>
 			</Container>
-			<InfoSection />
 		</>
 	);
 }
