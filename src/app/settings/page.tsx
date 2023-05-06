@@ -3,7 +3,7 @@
 import { Accordion, Alert, Button, Label, TextInput } from 'flowbite-react';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useCallback, useEffect, useId, useTransition } from 'react';
+import { FormEvent, useCallback, useId } from 'react';
 import { HiInformationCircle } from 'react-icons/hi';
 
 import { settingsAtom } from '@/atoms/settings.atom';
