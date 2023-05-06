@@ -59,7 +59,7 @@ export const UserInput = ({
 				</select>
 				<GenerateButton
 					apiKey={apiKey}
-					imageExists={!!prompt}
+					imageExists={!!avatarPrompt}
 					generateImage={generateImage}
 					loading={loading}
 				/>
