@@ -7,6 +7,15 @@ module.exports = {
 		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
-	theme: {},
+	theme: {
+		extend: {
+			height: {
+				screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
+			},
+			minHeight: {
+				screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
+			},
+		},
+	},
 	plugins: [require('flowbite/plugin')],
 };
