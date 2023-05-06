@@ -3,44 +3,23 @@
 import { Accordion, Alert, Button, Label, TextInput } from 'flowbite-react';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useCallback, useEffect, useId, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useId, useTransition } from 'react';
 import { HiInformationCircle } from 'react-icons/hi';
 
 import { settingsAtom } from '@/atoms/settings.atom';
 import { InfoSection } from '@/components/client/info-section';
 import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 import { Container } from '@/components/server/container';
-import { useDebounce } from '@/hooks/use-debounce';
-import { handleFetchErrors } from '@/utils/fetch-utils';
 
-const getIsKeyValid = (openApiKey: string) => {
-	return fetch(`/api/validate/openai?${new URLSearchParams({ openApiKey })}`);
-};
+import { useOpenaiApiKeyValid } from './hooks/use-openai-api-key-valid';
 
 export default function Settings() {
 	const openAiApiKeyId = useId();
 	const router = useRouter();
 
 	const [{ openaiApiKey, openaiApiKeyValid }, setSettings] = useAtom(settingsAtom);
-	const [loading, setLoading] = useState(false);
 
-	const debouncedOpenAiApiKey = useDebounce(openaiApiKey, 500);
-
-	useEffect(() => {
-		if (debouncedOpenAiApiKey) {
-			setLoading(true);
-			getIsKeyValid(debouncedOpenAiApiKey)
-				.then(handleFetchErrors)
-				.then(({ isValid }) =>
-					setSettings((prev) => ({ ...prev, openaiApiKeyValid: isValid })),
-				)
-				.finally(() => setLoading(false));
-		}
-	}, [debouncedOpenAiApiKey, setSettings]);
-
-	useEffect(() => {
-		if (!openaiApiKey) setSettings((prev) => ({ ...prev, openaiApiKeyValid: null }));
-	}, [openaiApiKey, setSettings]);
+	const { isPending } = useOpenaiApiKeyValid();
 
 	const goToDalle = useCallback(() => router.push('/'), [router]);
 
@@ -67,7 +46,7 @@ export default function Settings() {
 					value={openaiApiKey}
 					onChange={onChangeOpenAPIKey}
 				/>
-				{openaiApiKeyValid === false && !loading && (
+				{openaiApiKeyValid === false && !isPending && (
 					<Alert className="mt-4" color="warning" icon={HiInformationCircle}>
 						Your key does not seem to be valid.
 					</Alert>
@@ -107,10 +86,10 @@ export default function Settings() {
 				<Button
 					className="mt-4 w-full"
 					gradientDuoTone="purpleToPink"
-					disabled={!openaiApiKeyValid || loading}
+					disabled={!openaiApiKeyValid || isPending}
 					onClick={goToDalle}
 				>
-					{loading ? (
+					{isPending ? (
 						<LoadingSpinner text={'Checking key...'} />
 					) : openaiApiKeyValid ? (
 						'Back to DALL-E'
