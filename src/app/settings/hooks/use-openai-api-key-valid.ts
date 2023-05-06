@@ -1,29 +1,35 @@
 import { useAtom } from 'jotai';
 import { useEffect, useTransition } from 'react';
 
-import { openaiApiKeyAtom, writeOpenaiApiKeyValidAtom } from '@/atoms/settings.atom';
 import { useDebounce } from '@/hooks/use-debounce';
-import { checkOpenaiApiKey } from '@/server-actions/check-openai-key';
 
-export const useOpenaiApiKeyValid = () => {
+import type { WritableAtom, SetStateAction } from 'jotai';
+
+type Props = {
+	keyAtom: WritableAtom<string, [SetStateAction<string>], void>;
+	validAtom: WritableAtom<null, [boolean | null], void>;
+	checkApiKey: (key: string) => Promise<boolean>;
+};
+
+export const useApiKeyValid = ({ keyAtom, validAtom, checkApiKey }: Props) => {
 	const [isPending, startTransition] = useTransition();
 
-	const [openaiApiKey] = useAtom(openaiApiKeyAtom);
-	const [, setValid] = useAtom(writeOpenaiApiKeyValidAtom);
+	const [openaiApiKey] = useAtom(keyAtom);
+	const [, setValid] = useAtom(validAtom);
 
 	const debouncedOpenAiApiKey = useDebounce(openaiApiKey, 500);
 
 	useEffect(() => {
 		if (!debouncedOpenAiApiKey) return;
 		startTransition(async () => {
-			const isValid = await checkOpenaiApiKey(debouncedOpenAiApiKey);
+			const isValid = await checkApiKey(debouncedOpenAiApiKey);
 			setValid(isValid);
 		});
-	}, [debouncedOpenAiApiKey, setValid]);
+	}, [checkApiKey, debouncedOpenAiApiKey, setValid]);
 
 	useEffect(() => {
 		if (!openaiApiKey) setValid(null);
 	}, [openaiApiKey, setValid]);
 
-	return { isPending };
+	return [isPending] as const;
 };

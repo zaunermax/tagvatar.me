@@ -61,3 +61,16 @@ export const generateStableDiffusionImage = async (
 		url: base64 ? `data:image/png;base64,${base64}` : null,
 	};
 };
+
+export const checkSdApiKey = async (apiKey: string) => {
+	const response = await fetch(`${apiHost}/v1/user/account`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
+			Authorization: `Bearer ${apiKey}`,
+		},
+	});
+
+	return response.ok;
+};

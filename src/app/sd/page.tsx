@@ -6,7 +6,7 @@ import { useCallback, useState, useTransition } from 'react';
 import { currentGenreAtom, imageGenStateAtom } from '@/atoms/image-gen-state.atom';
 import { sdApiKeyAtom, usernameAtom } from '@/atoms/settings.atom';
 import { UserInput } from '@/components/client/user-input';
-import { generateStableDiffusionImage } from '@/server-actions/generate-sd-image';
+import { generateStableDiffusionImage } from '@/server-actions/sd-image-actions';
 
 export default function StableDiffusion() {
 	const [isPending, startTransition] = useTransition();

@@ -38,3 +38,11 @@ export const writeOpenaiApiKeyValidAtom = atom(
 		set(openaiApiKeyValidAtom, value);
 	},
 );
+
+export const sdApiKeyValidAtom = focusAtom(settingsAtom, (s) =>
+	s.prop('dreamStudioApiKeyValid'),
+);
+
+export const writeSdApiKeyValidAtom = atom(null, (get, set, value: boolean | null) => {
+	set(sdApiKeyValidAtom, value);
+});
