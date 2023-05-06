@@ -27,7 +27,7 @@ export const InfoSection = () => {
 				target={'_blank'}
 			>
 				<Image
-					className={'w-1/2'}
+					className={'w-1/2 min-w-[200px]'}
 					src={'/kofi.png'}
 					height={170}
 					width={1081}
