@@ -1,21 +1,20 @@
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
 
-import { allPrompts, enumToPrompts, GameGenre } from '@/utils/openai';
-
-function getRandomGamerAvatar(gamerAvatars: string[], gamerTag: string) {
-	const randomIndex = Math.floor(Math.random() * gamerAvatars.length);
-	const randomAvatar = gamerAvatars[randomIndex] ?? '';
-	return randomAvatar.replace('{{gamerTag}}', gamerTag);
-}
+import {
+	allPrompts,
+	enumToPrompts,
+	GameGenre,
+	getRandomGamerAvatarPrompt,
+} from '@/utils/image-prompts';
 
 const getOpenAiImage = (prompt: string, apiKey: string) => {
 	const openAiConfig = new Configuration({ apiKey });
 	const api = new OpenAIApi(openAiConfig);
 
 	return api
-		.createImage({ prompt, n: 1, size: '256x256' })
-		.then((response) => response.data?.data?.[0]?.url)
+		.createImage({ prompt, n: 1, size: '256x256', response_format: 'b64_json' })
+		.then((response) => response.data?.data?.[0]?.b64_json)
 		.catch((error) => {
 			if (error.response) {
 				throw new Error(error.response.data.error.message);
@@ -36,10 +35,11 @@ export async function POST(request: Request) {
 
 	const prompts = enumToPrompts[genre as GameGenre] ?? allPrompts;
 
-	const prompt = getRandomGamerAvatar(prompts, gamerTag.slice(0, 50));
+	const prompt = getRandomGamerAvatarPrompt(prompts, gamerTag.slice(0, 50));
 
 	try {
-		const avatarUrl = (await getOpenAiImage(prompt, apiKey)) ?? '';
+		const base64 = await getOpenAiImage(prompt, apiKey);
+		const avatarUrl = `data:image/png;base64,${base64}`;
 		return NextResponse.json({ avatarUrl, prompt });
 	} catch (e) {
 		return NextResponse.json(

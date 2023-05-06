@@ -7,9 +7,8 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
 		<div className="relative min-h-screen bg-gray-900">
 			<Image
 				src={'/background-new.png'}
-				alt={''}
+				alt={'background image'}
 				fill={true}
-				sizes={'100vw'}
 				quality={100}
 				className={'object-cover brightness-50'}
 				loading={'eager'}

@@ -1,25 +1,23 @@
 import { Button } from 'flowbite-react';
-import { useAtom } from 'jotai/index';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
-import { openaiApiKeyAtom } from '@/atoms/settings.atom';
 import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 
 type GenerateButtonProps = {
 	loading: boolean;
 	generateImage: () => Promise<void> | void;
 	imageExists: boolean;
+	apiKey: string | null;
 };
 
 export const GenerateButton = ({
 	loading,
 	generateImage,
 	imageExists,
+	apiKey,
 }: GenerateButtonProps) => {
 	const router = useRouter();
-
-	const [apiKey] = useAtom(openaiApiKeyAtom);
 
 	const buttonText = apiKey
 		? `${imageExists ? 'Re-' : ''}Generate Image`
@@ -32,7 +30,7 @@ export const GenerateButton = ({
 	return (
 		<Button
 			gradientDuoTone={apiKey ? 'purpleToPink' : 'redToYellow'}
-			className="mt-4 w-full"
+			className="w-full"
 			disabled={loading}
 			onClick={apiKey ? generateImage : linkToSettings}
 		>

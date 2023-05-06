@@ -3,50 +3,59 @@
 import { Accordion, Alert, Button, Label, TextInput } from 'flowbite-react';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useCallback, useEffect, useId, useState } from 'react';
+import { FormEvent, useCallback, useId } from 'react';
 import { HiInformationCircle } from 'react-icons/hi';
 
-import { settingsAtom } from '@/atoms/settings.atom';
+import {
+	openaiApiKeyAtom,
+	sdApiKeyAtom,
+	settingsAtom,
+	writeOpenaiApiKeyValidAtom,
+	writeSdApiKeyValidAtom,
+} from '@/atoms/settings.atom';
 import { InfoSection } from '@/components/client/info-section';
 import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 import { Container } from '@/components/server/container';
-import { useDebounce } from '@/hooks/use-debounce';
-import { handleFetchErrors } from '@/utils/fetch-utils';
+import { checkOpenaiApiKey } from '@/server-actions/check-openai-key';
+import { checkSdApiKey } from '@/server-actions/sd-image-actions';
 
-const getIsKeyValid = (openApiKey: string) => {
-	return fetch(`/api/validate/openai?${new URLSearchParams({ openApiKey })}`);
-};
+import { useApiKeyValid } from './hooks/use-openai-api-key-valid';
 
+// TODO: clean up this duplicated mess of a code :(
 export default function Settings() {
 	const openAiApiKeyId = useId();
+	const sdApiKeyId = useId();
 	const router = useRouter();
 
-	const [{ openaiApiKey, openaiApiKeyValid }, setSettings] = useAtom(settingsAtom);
-	const [loading, setLoading] = useState(false);
+	const [
+		{ openaiApiKey, openaiApiKeyValid, dreamStudioApiKey, dreamStudioApiKeyValid },
+		setSettings,
+	] = useAtom(settingsAtom);
 
-	const debouncedOpenAiApiKey = useDebounce(openaiApiKey, 500);
+	const [openaiPending] = useApiKeyValid({
+		keyAtom: openaiApiKeyAtom,
+		validAtom: writeOpenaiApiKeyValidAtom,
+		checkApiKey: checkOpenaiApiKey,
+	});
 
-	useEffect(() => {
-		if (debouncedOpenAiApiKey) {
-			setLoading(true);
-			getIsKeyValid(debouncedOpenAiApiKey)
-				.then(handleFetchErrors)
-				.then(({ isValid }) =>
-					setSettings((prev) => ({ ...prev, openaiApiKeyValid: isValid })),
-				)
-				.finally(() => setLoading(false));
-		}
-	}, [debouncedOpenAiApiKey, setSettings]);
+	const [sdPending] = useApiKeyValid({
+		keyAtom: sdApiKeyAtom,
+		validAtom: writeSdApiKeyValidAtom,
+		checkApiKey: checkSdApiKey,
+	});
 
-	useEffect(() => {
-		if (!openaiApiKey) setSettings((prev) => ({ ...prev, openaiApiKeyValid: null }));
-	}, [openaiApiKey, setSettings]);
-
-	const goToDalle = useCallback(() => router.push('/'), [router]);
+	const goToDalle = useCallback(() => router.push('/dalle'), [router]);
+	const goToSd = useCallback(() => router.push('/sd'), [router]);
 
 	const onChangeOpenAPIKey = useCallback(
 		(e: FormEvent<HTMLInputElement>) =>
 			setSettings((prev) => ({ ...prev, openaiApiKey: e.currentTarget.value })),
+		[setSettings],
+	);
+
+	const onChangeSdAPIKey = useCallback(
+		(e: FormEvent<HTMLInputElement>) =>
+			setSettings((prev) => ({ ...prev, dreamStudioApiKey: e.currentTarget.value })),
 		[setSettings],
 	);
 
@@ -67,7 +76,7 @@ export default function Settings() {
 					value={openaiApiKey}
 					onChange={onChangeOpenAPIKey}
 				/>
-				{openaiApiKeyValid === false && !loading && (
+				{openaiApiKeyValid === false && !openaiPending && (
 					<Alert className="mt-4" color="warning" icon={HiInformationCircle}>
 						Your key does not seem to be valid.
 					</Alert>
@@ -107,10 +116,10 @@ export default function Settings() {
 				<Button
 					className="mt-4 w-full"
 					gradientDuoTone="purpleToPink"
-					disabled={!openaiApiKeyValid || loading}
+					disabled={!openaiApiKeyValid || openaiPending}
 					onClick={goToDalle}
 				>
-					{loading ? (
+					{openaiPending ? (
 						<LoadingSpinner text={'Checking key...'} />
 					) : openaiApiKeyValid ? (
 						'Back to DALL-E'
@@ -118,6 +127,70 @@ export default function Settings() {
 						'Enter a valid API key first'
 					)}
 				</Button>
+				<div className="mt-8">
+					<div className="mb-2 block">
+						<Label htmlFor={sdApiKeyId} value="Your dreamstudio API key" />
+					</div>
+					<TextInput
+						id={sdApiKeyId}
+						type="password"
+						placeholder="OpenAI API Key"
+						className="w-full"
+						value={dreamStudioApiKey}
+						onChange={onChangeSdAPIKey}
+					/>
+					{openaiApiKeyValid === false && !sdPending && (
+						<Alert className="mt-4" color="warning" icon={HiInformationCircle}>
+							Your key does not seem to be valid.
+						</Alert>
+					)}
+					<Accordion className="mt-4" collapseAll>
+						<Accordion.Panel flush={false}>
+							<Accordion.Title>How do I get a dreamstudio API key?</Accordion.Title>
+							<Accordion.Content>
+								<ol className="list-inside list-decimal text-gray-400">
+									<li>
+										Create an account on{' '}
+										<a
+											className="underline hover:text-blue-400"
+											href="https://beta.dreamstudio.ai/account"
+											target={'_blank'}
+										>
+											dreamstudio.ai
+										</a>
+									</li>
+									<li>
+										Then go to{' '}
+										<a
+											className="underline hover:text-blue-400"
+											href="https://beta.dreamstudio.ai/account"
+											target={'_blank'}
+										>
+											the api key section
+										</a>
+									</li>
+									<li>Copy the key that was already generated</li>
+									<li>Put the key into the input</li>
+									<li>You will get about 10-15 images for free</li>
+								</ol>
+							</Accordion.Content>
+						</Accordion.Panel>
+					</Accordion>
+					<Button
+						className="mt-4 w-full"
+						gradientDuoTone="purpleToPink"
+						disabled={!dreamStudioApiKeyValid || sdPending}
+						onClick={goToSd}
+					>
+						{sdPending ? (
+							<LoadingSpinner text={'Checking key...'} />
+						) : dreamStudioApiKeyValid ? (
+							'Back to StableDiffusion'
+						) : (
+							'Enter a valid API key first'
+						)}
+					</Button>
+				</div>
 			</Container>
 			<InfoSection />
 		</>

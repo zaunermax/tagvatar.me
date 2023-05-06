@@ -148,3 +148,9 @@ export const enumToPrompts = {
 	[GameGenre.Rhythm]: rhythmPrompts,
 	[GameGenre.Random]: allPrompts,
 };
+
+export function getRandomGamerAvatarPrompt(gamerAvatars: string[], gamerTag: string) {
+	const randomIndex = Math.floor(Math.random() * gamerAvatars.length);
+	const randomAvatar = gamerAvatars[randomIndex] ?? '';
+	return randomAvatar.replace('{{gamerTag}}', gamerTag);
+}

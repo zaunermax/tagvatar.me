@@ -2,16 +2,14 @@
 
 import { default as Image } from 'next/image';
 
+import { Container } from '@/components/server/container';
 import { useSearchParamScroll } from '@/hooks/use-search-param-scroll';
 
 export const InfoSection = () => {
 	useSearchParamScroll('focus');
 
 	return (
-		<div
-			className="my-6 w-full max-w-md rounded-md bg-gray-800 p-8 text-gray-300 shadow-lg"
-			id="how-to-api-key"
-		>
+		<Container className="text-gray-300">
 			<h2 className="text-center font-semibold">
 				This project is{' '}
 				<a
@@ -36,6 +34,6 @@ export const InfoSection = () => {
 					alt={'buy me a ko-fi'}
 				/>
 			</a>
-		</div>
+		</Container>
 	);
 };
