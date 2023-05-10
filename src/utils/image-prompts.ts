@@ -10,7 +10,6 @@ export enum GameGenre {
 	MOBA = 'MOBA',
 	MMORPG = 'MMORPG',
 	Puzzle = 'Puzzle',
-	Rhythm = 'Rhythm',
 }
 
 // Generic
@@ -110,15 +109,6 @@ export const puzzlePrompts = [
 	'Illustration of {{gamerTag}} in a relaxing puzzle game setting, connecting colorful patterns and shapes',
 ];
 
-// Rhythm Games
-export const rhythmPrompts = [
-	'{{gamerTag}} as a dynamic character in a vibrant rhythm game, dancing to the beat of catchy tunes',
-	'Illustration of {{gamerTag}} as a skilled musician in a rhythm-based game, playing multiple instruments',
-	'{{gamerTag}} as a DJ in a lively rhythm game setting, mixing beats and keeping the party going',
-	'{{gamerTag}} as a synchronized swimmer in a rhythm-based sports game, performing intricate aquatic choreography',
-	'Illustration of {{gamerTag}} as a master percussionist in a drumming rhythm game, keeping the beat with precision',
-];
-
 // Concatenated array
 export const allPrompts = [
 	...genericPrompts,
@@ -131,7 +121,6 @@ export const allPrompts = [
 	...mobaPrompts,
 	...mmorpgPrompts,
 	...puzzlePrompts,
-	...rhythmPrompts,
 ];
 
 export const enumToPrompts = {
@@ -145,7 +134,6 @@ export const enumToPrompts = {
 	[GameGenre.MOBA]: mobaPrompts,
 	[GameGenre.MMORPG]: mmorpgPrompts,
 	[GameGenre.Puzzle]: puzzlePrompts,
-	[GameGenre.Rhythm]: rhythmPrompts,
 	[GameGenre.Random]: allPrompts,
 };
 
