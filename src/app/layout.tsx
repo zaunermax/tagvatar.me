@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
 	title: 'tagVAtar',
-	description: 'Generate your own avatar with OpenAI and your gamertag',
+	description: 'Generate your own avatar with OpenAI and your gamer-tag',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
