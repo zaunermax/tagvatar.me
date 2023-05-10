@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { ImageResponse } from 'next/server';
 
+import { getServerURL } from '@/utils/get-server-url';
+
 export const alt =
 	'tagVAtar lets you generate your own avatar with AI and your gamer-tag';
 export const size = {
@@ -14,7 +16,7 @@ export default async function OpengraphImage() {
 	return new ImageResponse(
 		(
 			<div tw="flex flex-col w-full h-full items-center justify-center">
-				<img src={'http://localhost:3000/background-optimized.png'} alt={'background'} />
+				<img src={`${getServerURL()}/background-optimized.png`} alt={'background'} />
 			</div>
 		),
 		{ ...size },
