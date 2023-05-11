@@ -28,8 +28,8 @@ export default function Settings() {
 					keyAtom={openaiApiKeyAtom}
 					validAtom={writeOpenaiApiKeyValidAtom}
 					checkApiKey={checkOpenaiApiKey}
-					apiKeyKey={'openaiApiKey'}
-					isValidKey={'openaiApiKeyValid'}
+					apiKeySettingsKey={'openaiApiKey'}
+					isValidSettingsKey={'openaiApiKeyValid'}
 					goTo={'/dalle'}
 					backToText={'Back to DALL-E'}
 					helpTitle={'How to get an OpenAI API key?'}
@@ -40,8 +40,8 @@ export default function Settings() {
 					keyAtom={sdApiKeyAtom}
 					validAtom={writeSdApiKeyValidAtom}
 					checkApiKey={checkSdApiKey}
-					apiKeyKey={'dreamStudioApiKey'}
-					isValidKey={'dreamStudioApiKeyValid'}
+					apiKeySettingsKey={'dreamStudioApiKey'}
+					isValidSettingsKey={'dreamStudioApiKeyValid'}
 					goTo={'/sd'}
 					backToText={'Back to StableDiffusion'}
 					helpTitle={'How to get a DreamStudio API key?'}

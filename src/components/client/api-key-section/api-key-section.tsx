@@ -14,8 +14,8 @@ type ApiKeySectionProps = {
 	keyAtom: WritableAtom<string, [SetStateAction<string>], void>;
 	validAtom: WritableAtom<null, [boolean | null], void>;
 	checkApiKey: (key: string) => Promise<boolean>;
-	apiKeyKey: StringKeys<SettingsType>;
-	isValidKey: BooleanOrNullKeys<SettingsType>;
+	apiKeySettingsKey: StringKeys<SettingsType>;
+	isValidSettingsKey: BooleanOrNullKeys<SettingsType>;
 	goTo: string;
 	backToText: string;
 	helpTitle: string;
@@ -23,12 +23,14 @@ type ApiKeySectionProps = {
 	className?: string;
 };
 
+// TODO: still not happy with this solution
+// maybe we can use jotai optics to improve this
 export const ApiKeySection = ({
 	keyAtom,
 	validAtom,
 	checkApiKey,
-	apiKeyKey,
-	isValidKey,
+	apiKeySettingsKey,
+	isValidSettingsKey,
 	goTo,
 	backToText,
 	helpTitle,
@@ -38,7 +40,7 @@ export const ApiKeySection = ({
 	const keyElementId = useId();
 	const router = useRouter();
 
-	const [{ [apiKeyKey]: keyVal, [isValidKey]: isValid }, setSettings] =
+	const [{ [apiKeySettingsKey]: keyVal, [isValidSettingsKey]: isValid }, setSettings] =
 		useAtom(settingsAtom);
 
 	const [openaiPending] = useApiKeyValid({
@@ -49,8 +51,8 @@ export const ApiKeySection = ({
 
 	const onChangeKey = useCallback(
 		(e: FormEvent<HTMLInputElement>) =>
-			setSettings((prev) => ({ ...prev, [apiKeyKey]: e.currentTarget.value })),
-		[apiKeyKey, setSettings],
+			setSettings((prev) => ({ ...prev, [apiKeySettingsKey]: e.currentTarget.value })),
+		[apiKeySettingsKey, setSettings],
 	);
 
 	const onGoTo = useCallback(() => router.push(goTo), [goTo, router]);
