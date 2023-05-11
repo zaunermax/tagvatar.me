@@ -34,11 +34,7 @@ export const generateStableDiffusionImage = async (
 			Authorization: `Bearer ${apiKey}`,
 		},
 		body: JSON.stringify({
-			text_prompts: [
-				{
-					text: prompt,
-				},
-			],
+			text_prompts: [{ text: prompt }],
 			height: 512,
 			width: 512,
 			steps: 30,

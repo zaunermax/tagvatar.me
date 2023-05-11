@@ -5,6 +5,8 @@ import { default as Image } from 'next/image';
 import { Container } from '@/components/server/container';
 import { useSearchParamScroll } from '@/hooks/use-search-param-scroll';
 
+import kofi from './assets/kofi.png';
+
 export const InfoSection = () => {
 	useSearchParamScroll('focus');
 
@@ -28,7 +30,7 @@ export const InfoSection = () => {
 			>
 				<Image
 					className={'w-1/2 min-w-[200px]'}
-					src={'/kofi.png'}
+					src={kofi}
 					height={170}
 					width={1081}
 					alt={'buy me a ko-fi'}

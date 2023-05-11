@@ -2,16 +2,17 @@ import { default as Image } from 'next/image';
 
 import { NavBar } from '@/components/client/nav-bar';
 
+import background from './assets/background.png';
+
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="relative min-h-screen bg-gray-900">
 			<Image
-				src={'/background-new.png'}
+				src={background}
 				alt={'background image'}
 				fill={true}
-				quality={100}
 				className={'object-cover brightness-50'}
-				loading={'eager'}
+				placeholder={'blur'}
 			/>
 			<div
 				className={
