@@ -1,11 +1,6 @@
 'use client';
 
-import {
-	openaiApiKeyAtom,
-	sdApiKeyAtom,
-	writeOpenaiApiKeyValidAtom,
-	writeSdApiKeyValidAtom,
-} from '@/atoms/settings.atom';
+import { openaiSettingsAtom, sdSettingsAtom } from '@/atoms/settings.atom';
 import {
 	OpenaiHelpSection,
 	SdHelpSection,
@@ -25,11 +20,8 @@ export default function Settings() {
 					Settings
 				</h1>
 				<ApiKeySection
-					keyAtom={openaiApiKeyAtom}
-					validAtom={writeOpenaiApiKeyValidAtom}
+					settingsAtom={openaiSettingsAtom}
 					checkApiKey={checkOpenaiApiKey}
-					apiKeySettingsKey={'openaiApiKey'}
-					isValidSettingsKey={'openaiApiKeyValid'}
 					goTo={'/dalle'}
 					backToText={'Back to DALL-E'}
 					helpTitle={'How to get an OpenAI API key?'}
@@ -37,11 +29,8 @@ export default function Settings() {
 					<OpenaiHelpSection />
 				</ApiKeySection>
 				<ApiKeySection
-					keyAtom={sdApiKeyAtom}
-					validAtom={writeSdApiKeyValidAtom}
+					settingsAtom={sdSettingsAtom}
 					checkApiKey={checkSdApiKey}
-					apiKeySettingsKey={'dreamStudioApiKey'}
-					isValidSettingsKey={'dreamStudioApiKeyValid'}
 					goTo={'/sd'}
 					backToText={'Back to StableDiffusion'}
 					helpTitle={'How to get a DreamStudio API key?'}

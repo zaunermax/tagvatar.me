@@ -5,54 +5,43 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, ReactNode, useCallback, useId } from 'react';
 import { HiInformationCircle } from 'react-icons/hi';
 
-import { settingsAtom, SettingsType } from '@/atoms/settings.atom';
+import { KeySettingType } from '@/atoms/settings.atom';
 import { LoadingSpinner } from '@/components/client/loading-spinner-text';
 import { useApiKeyValid } from '@/hooks/use-openai-api-key-valid';
-import { BooleanOrNullKeys, StringKeys } from '@/types';
 
 type ApiKeySectionProps = {
-	keyAtom: WritableAtom<string, [SetStateAction<string>], void>;
-	validAtom: WritableAtom<null, [boolean | null], void>;
 	checkApiKey: (key: string) => Promise<boolean>;
-	apiKeySettingsKey: StringKeys<SettingsType>;
-	isValidSettingsKey: BooleanOrNullKeys<SettingsType>;
 	goTo: string;
 	backToText: string;
 	helpTitle: string;
 	children: ReactNode;
 	className?: string;
+	settingsAtom: WritableAtom<KeySettingType, [SetStateAction<KeySettingType>], void>;
 };
 
-// TODO: still not happy with this solution
-// maybe we can use jotai optics to improve this
 export const ApiKeySection = ({
-	keyAtom,
-	validAtom,
 	checkApiKey,
-	apiKeySettingsKey,
-	isValidSettingsKey,
 	goTo,
 	backToText,
 	helpTitle,
 	children,
 	className,
+	settingsAtom,
 }: ApiKeySectionProps) => {
 	const keyElementId = useId();
 	const router = useRouter();
 
-	const [{ [apiKeySettingsKey]: keyVal, [isValidSettingsKey]: isValid }, setSettings] =
-		useAtom(settingsAtom);
+	const [{ apiKey, isValid }, setSetting] = useAtom(settingsAtom);
 
 	const [openaiPending] = useApiKeyValid({
-		keyAtom,
-		validAtom,
+		settingsAtom,
 		checkApiKey,
 	});
 
 	const onChangeKey = useCallback(
 		(e: FormEvent<HTMLInputElement>) =>
-			setSettings((prev) => ({ ...prev, [apiKeySettingsKey]: e.currentTarget.value })),
-		[apiKeySettingsKey, setSettings],
+			setSetting((prev) => ({ ...prev, apiKey: e.currentTarget.value })),
+		[setSetting],
 	);
 
 	const onGoTo = useCallback(() => router.push(goTo), [goTo, router]);
@@ -68,7 +57,7 @@ export const ApiKeySection = ({
 					type="password"
 					placeholder="OpenAI API Key"
 					className="w-full"
-					value={keyVal}
+					value={apiKey}
 					onChange={onChangeKey}
 				/>
 			</div>
