@@ -13,7 +13,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const [{ apiKey }] = useAtom(openaiSettingsAtom);
+	const [{ apiKey, isValid }] = useAtom(openaiSettingsAtom);
 	const [gamerTag] = useAtom(usernameAtom);
 	const [genre] = useAtom(currentGenreAtom);
 	const [{ avatarUrl, prompt }, setImageGenState] = useAtom(imageGenStateAtom);
@@ -32,7 +32,7 @@ export default function Home() {
 
 	return (
 		<UserInput
-			apiKey={apiKey}
+			apiKeyValid={isValid}
 			loading={loading}
 			generateImage={generateImage}
 			error={error}

@@ -12,7 +12,7 @@ export default function StableDiffusion() {
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState<string | null>(null);
 
-	const [{ apiKey }] = useAtom(sdSettingsAtom);
+	const [{ apiKey, isValid }] = useAtom(sdSettingsAtom);
 	const [gamerTag] = useAtom(usernameAtom);
 	const [genre] = useAtom(currentGenreAtom);
 	const [{ sdAvatarUrl, sdPrompt }, setImageGenState] = useAtom(imageGenStateAtom);
@@ -37,7 +37,7 @@ export default function StableDiffusion() {
 
 	return (
 		<UserInput
-			apiKey={apiKey}
+			apiKeyValid={isValid}
 			loading={isPending}
 			generateImage={generateImage}
 			error={error}

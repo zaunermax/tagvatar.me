@@ -15,7 +15,7 @@ type UserInputProps = {
 	generateImage: () => void;
 	error: string | null;
 	model: string;
-	apiKey: string;
+	apiKeyValid: boolean | null;
 	avatarUrl: string;
 	avatarPrompt: string | null;
 };
@@ -25,7 +25,7 @@ export const UserInput = ({
 	generateImage,
 	error,
 	model,
-	apiKey,
+	apiKeyValid,
 	avatarUrl,
 	avatarPrompt,
 }: UserInputProps) => {
@@ -58,7 +58,7 @@ export const UserInput = ({
 					))}
 				</select>
 				<GenerateButton
-					apiKey={apiKey}
+					apiKeyValid={apiKeyValid}
 					imageExists={!!avatarPrompt}
 					generateImage={generateImage}
 					loading={loading}
