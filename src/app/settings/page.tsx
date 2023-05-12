@@ -6,8 +6,8 @@ import {
 	SdHelpSection,
 	ApiKeySection,
 } from '@/components/client/api-key-section';
-import { InfoSection } from '@/components/client/info-section';
 import { Container } from '@/components/server/container';
+import { InfoSection } from '@/components/server/info-section';
 import { checkOpenaiApiKey } from '@/server-actions/check-openai-key';
 import { checkSdApiKey } from '@/server-actions/sd-image-actions';
 
