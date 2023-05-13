@@ -1,11 +1,16 @@
-# Welcome to AI generated Gamer Avatars
+# Welcome to the tagVAtar project
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I7KTF35)
 [![wakatime](https://wakatime.com/badge/user/0723bbca-bed4-44e0-90be-413a9eff4dfb/project/290426db-b763-4cdc-8da6-d09087d9e561.svg?style=for-the-badge)](https://wakatime.com/badge/user/0723bbca-bed4-44e0-90be-413a9eff4dfb/project/290426db-b763-4cdc-8da6-d09087d9e561)
 
-Welcome to my little project where I use the power of GPT-4 and DALL-E to generate gamer
-profile avatars by simply typing in your gamer tag. This project is using the OpenAI API
-to generate images with DALL-E.
+Welcome to my little project where I use the power of GPT-4 and DALL-E/StableDiffusion to
+generate gamer profile avatars by simply providing an API key and typing in your gamer
+tag. This project is using the OpenAI API to generate images with DALL-E.
+
+Also in this project I wanted to try out all the new, hot, blazing fast (😛),
+{{insert buzzwords here}} Next.js 13 features including the app router and server actions.
+If you see anything in the code that could be improved please feel free to open on
+issue/PR.
 
 I came up with this idea by doing an internal hackathon at work. I wanted to do something
 with GPT-4 and DALL-E and I thought it would be cool to generate avatars for gamers. I
