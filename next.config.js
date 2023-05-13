@@ -16,7 +16,7 @@ const nextConfig = {
 		return [
 			{
 				source: '/',
-				destination: '/dalle',
+				destination: '/sd',
 				permanent: false,
 			},
 		];

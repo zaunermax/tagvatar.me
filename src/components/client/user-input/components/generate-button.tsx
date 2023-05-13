@@ -8,18 +8,18 @@ type GenerateButtonProps = {
 	loading: boolean;
 	generateImage: () => Promise<void> | void;
 	imageExists: boolean;
-	apiKey: string | null;
+	apiKeyValid: boolean | null;
 };
 
 export const GenerateButton = ({
 	loading,
 	generateImage,
 	imageExists,
-	apiKey,
+	apiKeyValid,
 }: GenerateButtonProps) => {
 	const router = useRouter();
 
-	const buttonText = apiKey
+	const buttonText = apiKeyValid
 		? `${imageExists ? 'Re-' : ''}Generate Image`
 		: 'Set your API key';
 
@@ -29,10 +29,10 @@ export const GenerateButton = ({
 
 	return (
 		<Button
-			gradientDuoTone={apiKey ? 'purpleToPink' : 'redToYellow'}
+			gradientDuoTone={apiKeyValid ? 'purpleToPink' : 'redToYellow'}
 			className="w-full"
 			disabled={loading}
-			onClick={apiKey ? generateImage : linkToSettings}
+			onClick={apiKeyValid ? generateImage : linkToSettings}
 		>
 			{loading ? <LoadingSpinner /> : buttonText}
 		</Button>

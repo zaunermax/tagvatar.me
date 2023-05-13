@@ -29,14 +29,14 @@ export const NavBar = () => {
 					<Navbar.Toggle className="ml-2 md:ml-0" />
 				</div>
 				<Navbar.Collapse>
-					<Link href={'/dalle'}>
-						<Navbar.Link as={'span'} active={activeSegment?.includes('dalle')}>
-							DALL-E
-						</Navbar.Link>
-					</Link>
 					<Link href={'/sd'}>
 						<Navbar.Link as={'span'} active={activeSegment?.includes('sd')}>
 							Stable Diffusion
+						</Navbar.Link>
+					</Link>
+					<Link href={'/dalle'}>
+						<Navbar.Link as={'span'} active={activeSegment?.includes('dalle')}>
+							DALL-E
 						</Navbar.Link>
 					</Link>
 				</Navbar.Collapse>

@@ -1,15 +1,10 @@
-'use client';
-
 import { default as Image } from 'next/image';
 
 import { Container } from '@/components/server/container';
-import { useSearchParamScroll } from '@/hooks/use-search-param-scroll';
 
 import kofi from './assets/kofi.png';
 
 export const InfoSection = () => {
-	useSearchParamScroll('focus');
-
 	return (
 		<Container className="text-gray-300">
 			<h2 className="text-center font-semibold">

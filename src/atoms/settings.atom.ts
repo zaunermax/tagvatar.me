@@ -1,48 +1,33 @@
-import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { focusAtom } from 'jotai-optics';
 
+export type KeySettingType = {
+	apiKey: string;
+	isValid: boolean | null;
+};
+
 export type SettingsType = {
-	openaiApiKey: string;
-	openaiApiKeyValid: boolean | null;
-	dreamStudioApiKey: string;
-	dreamStudioApiKeyValid: boolean | null;
-	huggingFaceApiKey: string;
 	userName: string;
+	openai: KeySettingType;
+	sd: KeySettingType;
 };
 
 const initialSettings: SettingsType = {
-	openaiApiKey: '',
-	openaiApiKeyValid: null as boolean | null,
-	dreamStudioApiKey: '',
-	dreamStudioApiKeyValid: null as boolean | null,
-	huggingFaceApiKey: '',
 	userName: '',
+	openai: {
+		apiKey: '',
+		isValid: null,
+	},
+	sd: {
+		apiKey: '',
+		isValid: null,
+	},
 };
 
 export const settingsAtom = atomWithStorage('settings', initialSettings);
 
-export const openaiApiKeyAtom = focusAtom(settingsAtom, (s) => s.prop('openaiApiKey'));
+export const openaiSettingsAtom = focusAtom(settingsAtom, (s) => s.prop('openai'));
 
-export const sdApiKeyAtom = focusAtom(settingsAtom, (s) => s.prop('dreamStudioApiKey'));
+export const sdSettingsAtom = focusAtom(settingsAtom, (s) => s.prop('sd'));
 
 export const usernameAtom = focusAtom(settingsAtom, (s) => s.prop('userName'));
-
-export const openaiApiKeyValidAtom = focusAtom(settingsAtom, (s) =>
-	s.prop('openaiApiKeyValid'),
-);
-
-export const writeOpenaiApiKeyValidAtom = atom(
-	null,
-	(get, set, value: boolean | null) => {
-		set(openaiApiKeyValidAtom, value);
-	},
-);
-
-export const sdApiKeyValidAtom = focusAtom(settingsAtom, (s) =>
-	s.prop('dreamStudioApiKeyValid'),
-);
-
-export const writeSdApiKeyValidAtom = atom(null, (get, set, value: boolean | null) => {
-	set(sdApiKeyValidAtom, value);
-});

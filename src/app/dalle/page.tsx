@@ -1,10 +1,10 @@
 'use client';
 
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { useCallback, useState } from 'react';
 
 import { currentGenreAtom, imageGenStateAtom } from '@/atoms/image-gen-state.atom';
-import { openaiApiKeyAtom, usernameAtom } from '@/atoms/settings.atom';
+import { openaiSettingsAtom, usernameAtom } from '@/atoms/settings.atom';
 import { UserInput } from '@/components/client/user-input';
 import { getGeneratedImage } from '@/components/client/user-input/utils/generate-image';
 import { handleFetchErrors } from '@/utils/fetch-utils';
@@ -13,14 +13,14 @@ export default function Home() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const [openaiApiKey] = useAtom(openaiApiKeyAtom);
+	const [{ apiKey, isValid }] = useAtom(openaiSettingsAtom);
 	const [gamerTag] = useAtom(usernameAtom);
 	const [genre] = useAtom(currentGenreAtom);
 	const [{ avatarUrl, prompt }, setImageGenState] = useAtom(imageGenStateAtom);
 
 	const generateImage = useCallback(() => {
 		setLoading(true);
-		getGeneratedImage(gamerTag, openaiApiKey, genre)
+		getGeneratedImage(gamerTag, apiKey, genre)
 			.then(handleFetchErrors)
 			.then(({ avatarUrl, prompt }) => {
 				setImageGenState((prev) => ({ ...prev, avatarUrl, prompt }));
@@ -28,11 +28,11 @@ export default function Home() {
 			})
 			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
-	}, [genre, openaiApiKey, gamerTag, setImageGenState]);
+	}, [genre, apiKey, gamerTag, setImageGenState]);
 
 	return (
 		<UserInput
-			apiKey={openaiApiKey}
+			apiKeyValid={isValid}
 			loading={loading}
 			generateImage={generateImage}
 			error={error}

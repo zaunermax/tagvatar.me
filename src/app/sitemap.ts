@@ -18,5 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			url: `${base}/sd`,
 			lastModified: new Date(),
 		},
+		{
+			url: `${base}/settings`,
+			lastModified: new Date(),
+		},
 	];
 }
