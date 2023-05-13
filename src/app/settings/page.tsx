@@ -20,22 +20,24 @@ export default function Settings() {
 					Settings
 				</h1>
 				<ApiKeySection
-					settingsAtom={openaiSettingsAtom}
-					checkApiKey={checkOpenaiApiKey}
-					goTo={'/dalle'}
-					backToText={'Back to DALL-E'}
-					helpTitle={'How to get an OpenAI API key?'}
-				>
-					<OpenaiHelpSection />
-				</ApiKeySection>
-				<ApiKeySection
 					settingsAtom={sdSettingsAtom}
 					checkApiKey={checkSdApiKey}
-					goTo={'/sd'}
+					goBackPath={'/sd'}
+					labelText={'DreamStudio API Key'}
 					backToText={'Back to StableDiffusion'}
 					helpTitle={'How to get a DreamStudio API key?'}
 				>
 					<SdHelpSection />
+				</ApiKeySection>
+				<ApiKeySection
+					settingsAtom={openaiSettingsAtom}
+					checkApiKey={checkOpenaiApiKey}
+					goBackPath={'/dalle'}
+					labelText={'OpenAI API Key'}
+					backToText={'Back to DALL-E'}
+					helpTitle={'How to get an OpenAI API key?'}
+				>
+					<OpenaiHelpSection />
 				</ApiKeySection>
 			</Container>
 		</>

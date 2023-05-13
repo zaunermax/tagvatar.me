@@ -11,7 +11,8 @@ import { useApiKeyValid } from '@/hooks/use-openai-api-key-valid';
 
 type ApiKeySectionProps = {
 	checkApiKey: (key: string) => Promise<boolean>;
-	goTo: string;
+	goBackPath: string;
+	labelText: string;
 	backToText: string;
 	helpTitle: string;
 	children: ReactNode;
@@ -21,7 +22,8 @@ type ApiKeySectionProps = {
 
 export const ApiKeySection = ({
 	checkApiKey,
-	goTo,
+	goBackPath,
+	labelText,
 	backToText,
 	helpTitle,
 	children,
@@ -44,13 +46,13 @@ export const ApiKeySection = ({
 		[setSetting],
 	);
 
-	const onGoTo = useCallback(() => router.push(goTo), [goTo, router]);
+	const onGoTo = useCallback(() => router.push(goBackPath), [goBackPath, router]);
 
 	return (
 		<div className={clsx('space-y-4', className)}>
 			<div>
 				<div className="mb-2 block">
-					<Label htmlFor={keyElementId} value="Your openAI API key" />
+					<Label htmlFor={keyElementId} value={labelText} />
 				</div>
 				<TextInput
 					id={keyElementId}
