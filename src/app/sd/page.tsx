@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { useCallback, useState, useTransition } from 'react';
 
 import { currentGenreAtom, imageGenStateAtom } from '@/atoms/image-gen-state.atom';

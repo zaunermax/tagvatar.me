@@ -1,5 +1,5 @@
 import { TextInput } from 'flowbite-react';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { default as Image } from 'next/image';
 
 import { imageGenStateAtom } from '@/atoms/image-gen-state.atom';
