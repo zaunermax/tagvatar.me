@@ -5,6 +5,8 @@ import { default as Image } from 'next/image';
 import { default as Link } from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 
+import logo from './assets/logo.png';
+
 export const NavBar = () => {
 	const activeSegment = useSelectedLayoutSegment();
 
@@ -14,10 +16,8 @@ export const NavBar = () => {
 				<Link href={'/'}>
 					<Navbar.Brand as={'span'}>
 						<Image
-							src={'/logo.png'}
+							src={logo}
 							alt={'the tagvatar logo'}
-							width={64}
-							height={64}
 							className="mr-3 h-11 w-11 rounded-full"
 						/>
 					</Navbar.Brand>

@@ -57,7 +57,7 @@ export const ApiKeySection = ({
 				<TextInput
 					id={keyElementId}
 					type="password"
-					placeholder="OpenAI API Key"
+					placeholder="Enter your API key"
 					className="w-full"
 					value={apiKey}
 					onChange={onChangeKey}

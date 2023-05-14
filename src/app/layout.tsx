@@ -1,9 +1,11 @@
 import { Analytics } from '@vercel/analytics/react';
 import { Inter } from 'next/font/google';
+import { Suspense } from 'react';
 
 import { AppLayout } from '@/components/server/app-layout';
 import { getServerURL } from '@/utils/get-server-url';
 
+import Loading from './loading';
 import { Providers } from './providers';
 
 import './globals.css';
@@ -21,7 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en" className="dark">
 			<body className={inter.className}>
 				<Providers>
-					<AppLayout>{children}</AppLayout>
+					<AppLayout>
+						<Suspense fallback={<Loading />}>{children}</Suspense>
+					</AppLayout>
 				</Providers>
 			</body>
 			<Analytics />
