@@ -3,7 +3,7 @@
 import { useAtom } from 'jotai';
 import { useCallback, useState, useTransition } from 'react';
 
-import { currentGenreAtom, imageGenStateAtom } from '@/atoms/image-gen-state.atom';
+import { imageGenStateAtom } from '@/atoms/image-gen-state.atom';
 import { sdSettingsAtom, usernameAtom } from '@/atoms/settings.atom';
 import { UserInput } from '@/components/client/user-input';
 import { generateStableDiffusionImage } from '@/server-actions/sd-image-actions';
@@ -14,8 +14,7 @@ export default function StableDiffusion() {
 
 	const [{ apiKey, isValid }] = useAtom(sdSettingsAtom);
 	const [gamerTag] = useAtom(usernameAtom);
-	const [genre] = useAtom(currentGenreAtom);
-	const [{ sdAvatarUrl, sdPrompt }, setImageGenState] = useAtom(imageGenStateAtom);
+	const [{ sdAvatarUrl, sdPrompt, genre }, setImageGenState] = useAtom(imageGenStateAtom);
 
 	const generateImage = useCallback(() => {
 		setError(null);

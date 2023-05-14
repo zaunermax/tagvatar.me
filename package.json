@@ -16,6 +16,7 @@
     "jotai": "^2.1.0",
     "jotai-optics": "^0.3.0",
     "next": "13.4.1",
+    "next-auth": "^4.22.1",
     "openai": "^3.2.1",
     "optics-ts": "^2.4.0",
     "react": "18.2.0",
