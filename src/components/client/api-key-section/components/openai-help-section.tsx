@@ -23,7 +23,6 @@ export const OpenaiHelpSection = () => {
 			</li>
 			<li>Generate a new secret key and copy it</li>
 			<li>Put the key into the input</li>
-			<li>The first 5$ worth of generation is free</li>
 		</ol>
 	);
 };
