@@ -5,7 +5,7 @@ export const SdHelpSection = () => {
 				Create an account on{' '}
 				<a
 					className="underline hover:text-blue-400"
-					href="https://beta.dreamstudio.ai/account"
+					href="https://dreamstudio.ai/account"
 					target={'_blank'}
 				>
 					dreamstudio.ai
@@ -15,7 +15,7 @@ export const SdHelpSection = () => {
 				Then go to{' '}
 				<a
 					className="underline hover:text-blue-400"
-					href="https://beta.dreamstudio.ai/account"
+					href="https://dreamstudio.ai/account"
 					target={'_blank'}
 				>
 					the api key section
